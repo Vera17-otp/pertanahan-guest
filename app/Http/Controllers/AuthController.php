@@ -34,5 +34,6 @@ class AuthController extends Controller
 
         // Kalau validasi berhasil → langsung ke halaman berhasil
         return view('berhasil', ['username' => $username]);
+        // mengulang kembali untuk demokan github
     }
 }
