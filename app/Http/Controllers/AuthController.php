@@ -32,6 +32,7 @@ class AuthController extends Controller
 
         $username = $request->input('username');
 
+        
         // Kalau validasi berhasil → langsung ke halaman berhasil
         return redirect()->route('index', ['username' => $username]);
         // mengulang kembali untuk demokan github
