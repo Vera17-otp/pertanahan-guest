@@ -33,7 +33,7 @@ class AuthController extends Controller
         $username = $request->input('username');
 
         // Kalau validasi berhasil → langsung ke halaman berhasil
-        return view('berhasil', ['username' => $username]);
+        return redirect()->route('index', ['username' => $username]);
         // mengulang kembali untuk demokan github
     }
 }
