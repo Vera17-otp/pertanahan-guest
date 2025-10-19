@@ -43,6 +43,7 @@ class PertanahanGuestController extends Controller
 
     // Edit data
     public function edit(DokumenPersil $dokumen_persil)
+
     {
         return view('guest.edit', compact('dokumen_persil'));
     }

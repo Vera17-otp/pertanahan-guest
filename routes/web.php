@@ -9,11 +9,11 @@ Route::prefix('guest')->group(function () {
     Route::get('/pertanahan', [PertanahanguestController::class, 'index'])->name('pertanahanguest.index');
     Route::get('/pertanahan/create', [PertanahanguestController::class, 'create'])->name('pertanahanguest.create');
     Route::post('/pertanahan', [PertanahanguestController::class, 'store'])->name('pertanahanguest.store');
-    Route::get('/pertanahan/{id}/edit', [PertanahanGuestController::class, 'edit'])->name('pertanahanguest.edit');
-    Route::put('/pertanahan/{id}', [PertanahanGuestController::class, 'update'])->name('pertanahanguest.update');
-
-    Route::delete('pertanahan/hapus/{id}', [PertanahanguestController::class, 'destroy'])->name('pertanahan.destroy');
+    Route::get('/pertanahan/{dokumen_persil}/edit', [PertanahanguestController::class, 'edit'])->name('pertanahanguest.edit');
+    Route::put('/pertanahan/{dokumen_persil}', [PertanahanguestController::class, 'update'])->name('pertanahanguest.update');
+    Route::delete('/pertanahan/hapus/{id}', [PertanahanguestController::class, 'destroy'])->name('pertanahan.destroy');
 });
+
 
 
 

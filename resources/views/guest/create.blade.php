@@ -48,7 +48,7 @@
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+                        <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
                     </a>
                 </div>
                 <div class="col-lg-9">
@@ -75,7 +75,7 @@
                     </div>
                     <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
                         <a href="index.html" class="navbar-brand d-block d-lg-none">
-                            <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+                            <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
                         </a>
                         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                             <span class="navbar-toggler-icon"></span>
@@ -114,7 +114,7 @@
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Booking</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Pertanahan</li>
                         </ol>
                     </nav>
                 </div>
@@ -128,10 +128,7 @@
         <!-- Booking Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase">Room Booking</h6>
-                    <h1 class="mb-5">Book A <span class="text-primary text-uppercase">Luxury Room</span></h1>
-                </div>
+                
                 <div class="row g-5">
                     <div class="col-lg-6">
                         <div class="row g-3">
@@ -226,9 +223,9 @@
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-4">
                         <div class="bg-primary rounded p-4">
-                            <a href="index.html"><h1 class="text-white text-uppercase mb-3">Hotelier</h1></a>
+                            <a href="index.html"><h1 class="text-white text-uppercase mb-3">Pertanahan</h1></a>
                             <p class="text-white mb-0">
-								Download <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Hotelier – Premium Version</a>, build a professional website for your hotel business and grab the attention of new visitors upon your site’s launch.
+								Download <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Pertanahan – Premium Version</a>, build a professional website for your Peratanahan guest.
 							</p>
                         </div>
                     </div>
