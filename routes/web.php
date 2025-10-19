@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PertanahanController;
 use App\Http\Controllers\PertanahanguestController;
 
+
 Route::prefix('guest')->group(function () {
     Route::get('/pertanahan', [PertanahanguestController::class, 'index'])->name('pertanahanguest.index');
     Route::get('/pertanahan/create', [PertanahanguestController::class, 'create'])->name('pertanahanguest.create');
