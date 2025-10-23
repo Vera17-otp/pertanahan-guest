@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PertanahanController;
 use App\Http\Controllers\PertanahanguestController;
+use App\Http\Controllers\GuestUserController;
+
+Route::prefix('guest')->group(function () {
+    Route::resource('user', GuestUserController::class, ['as' => 'guest']);
+});
+
 
 
 Route::prefix('guest')->group(function () {
