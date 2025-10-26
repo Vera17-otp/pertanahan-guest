@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -21,7 +24,7 @@ class AuthController extends Controller
             'password' => [
                 'required',
                 'min:3',
-                'regex:/[A-Z]/' // harus ada huruf kapital
+                'regex:/[A-Z]/'
             ],
         ], [
             'username.required' => 'Username wajib diisi.',
@@ -29,12 +32,24 @@ class AuthController extends Controller
             'password.min' => 'Password minimal 3 karakter.',
             'password.regex' => 'Password harus mengandung minimal satu huruf kapital.',
         ]);
+        $name = strtolower($request->username);
+        $email = User::where('email', $request->email)->first();
+        $user = User::where('name', $name)->first();
 
-        $username = $request->input('username');
+        if($email || $user && Hash::check($request->password, $user->password)){
+            Auth::login($user);
+            $request->session()->regenerate();
+            return redirect()->route('datapertanahan')->with('success', 'Login berhasil!');
+        }
+        return back()->withErrors([
+            'loginError'=>'Login gagal! password atau username salah.'
+        ])->withInput();
+    }
 
-        
-        // Kalau validasi berhasil → langsung ke halaman berhasil
-        return redirect()->route('index', ['username' => $username]);
-        // mengulang kembali untuk demokan github
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back()->with('success', 'Anda telah logout.');
     }
 }

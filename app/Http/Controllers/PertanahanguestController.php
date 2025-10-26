@@ -31,12 +31,17 @@ class PertanahanGuestController extends Controller
             'keterangan'    => 'nullable|string',
             'file_dokumen'  => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
-
         if ($request->hasFile('file_dokumen')) {
-            $validated['file_path'] = $request->file('file_dokumen')->store('dokumen_persil', 'public');
+            $originalName = $request->file('file_dokumen')->getClientOriginalName();
+            $imageName = $request->file('file_dokumen')->storeAs('dokumen_persil', $originalName, 'public');
         }
-
-        DokumenPersil::create($validated);
+        DokumenPersil::create([
+            'persil_id'     => $validated['persil_id'],
+            'jenis_dokumen' => $validated['jenis_dokumen'],
+            'nomor'         => $validated['nomor'],
+            'keterangan'    => $validated['keterangan'],
+            'file_dokumen'  => $imageName,
+        ]);
 
         return redirect()->route('pertanahanguest.index')->with('success', 'Dokumen Persil berhasil ditambahkan!');
     }
@@ -75,9 +80,7 @@ class PertanahanGuestController extends Controller
     public function destroy($id)
     {
         $dokumen = DokumenPersil::findOrFail($id);
-    $dokumen->delete();
-
-
+        $dokumen->delete();
         return redirect()->route('pertanahanguest.index')->with('success', 'Dokumen Persil berhasil dihapus!');
     }
 }

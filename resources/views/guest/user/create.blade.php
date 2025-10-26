@@ -1,4 +1,4 @@
-@extends('guest.layouts.app')
+@extends('guest.layouts.guest.app')
 
 @section('title', 'Tambah User')
 
@@ -18,7 +18,7 @@
     @endif
 
     {{-- Form Tambah User --}}
-    <form action="{{ route('guest.user.store') }}" method="POST">
+    <form action="{{ route('user.store') }}" method="POST">
         @csrf
 
         <div class="mb-3">
@@ -42,7 +42,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('guest.user.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('user.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

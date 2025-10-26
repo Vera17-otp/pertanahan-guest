@@ -64,8 +64,6 @@
     <div class="login-container">
         <div class="login-header"></div>
         <h2>Login Pertanahan</h2>
-
-        {{-- Tampilkan pesan error jika ada --}}
         @if($errors->any())
             <div class="alert alert-danger mt-3">
                 <ul class="mb-0">
@@ -76,7 +74,7 @@
             </div>
         @endif
 
-        <form action="{{ url('/auth/login') }}" method="POST" class="mt-3">
+        <form action="{{route('login.process')}}" method="POST" class="mt-3">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Username</label>

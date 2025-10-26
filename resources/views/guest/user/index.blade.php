@@ -2,114 +2,113 @@
 
 @section('content')
 <div class="container-xxl bg-white p-0">
-        <div class="container-fluid bg-dark px-0">
-            <div class="row gx-0">
-                <div class="col-lg-3 bg-dark d-none d-lg-block">
-                    <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
+    <div class="container-fluid bg-dark px-0">
+        <div class="row gx-0">
+            <x-navbar />
+        </div>
+    </div>
+    <div class="container-fluid page-header mb-5 p-0"
+         style="background-image: url('{{ asset('img/carousel-1.jpg') }}'); background-size: cover;">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center pb-5">
+                <h1 class="display-5 text-white mb-3 fw-bold animated slideInDown">Data User</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title text-center text-primary text-uppercase">Manajemen Pengguna</h6>
+                <h1 class="mb-4">Data <span class="text-primary text-uppercase">User</span></h1>
+            </div>
+
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (Auth::check())
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="{{ route('user.create') }}" class="btn btn-primary shadow-sm wow fadeInRight" data-wow-delay="0.2s">
+                        <i class="fa fa-plus me-2"></i> Tambah User
                     </a>
                 </div>
-                <div class="col-lg-9">
-                    <div class="row gx-0 bg-white d-none d-lg-flex">
-                        <div class="col-lg-7 px-5 text-start">
-                            <div class="h-100 d-inline-flex align-items-center py-2 me-4">
-                                <i class="fa fa-envelope text-primary me-2"></i>
-                                <p class="mb-0">info@example.com</p>
-                            </div>
-                            <div class="h-100 d-inline-flex align-items-center py-2">
-                                <i class="fa fa-phone-alt text-primary me-2"></i>
-                                <p class="mb-0">+012 345 6789</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 px-5 text-end">
-                            <div class="d-inline-flex align-items-center py-2">
-                                <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="" href=""><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
-                            <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
-                        </a>
-                        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link">Home</a>
-                                <a href="about.html" class="nav-item nav-link">About</a>
-                                <a href="service.html" class="nav-item nav-link">Services</a>
-                                <a href="room.html" class="nav-item nav-link">Rooms</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="booking.html" class="dropdown-item active">Pertanahan</a>
-                                        <a href="team.html" class="dropdown-item">Our Team</a>
-                                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                    </div>
-                                </div>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
-                            </div>
-                            <a href="https://htmlcodex.com/hotel-html-template-pro" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Premium Version<i class="fa fa-arrow-right ms-3"></i></a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-1.jpg);">
-            <div class="container-fluid page-header-inner py-5">
-                <div class="container text-center pb-5">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Data Dokumen Persil</h1>
-                    <nav aria-label="breadcrumb">
-                        </nav>
-                </div>
-            </div>
-        </div>
-        <div class="container-xxl py-5">
-                    <div class="container">
-                        <div class="container mt-5">
-                            <h3 class="mb-3 text-center">Daftar User (Guest)</h3>
 
-                            @if(session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-
-                            <div class="text-end mb-3">
-                                <a href="{{ route('guest.user.create') }}" class="btn btn-primary">Tambah User</a>
-                            
-
-                            <table class="">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($users as $key => $user)
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            <a href="{{ route('guest.user.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('guest.user.destroy', $user->id) }}" method="POST" class="d-inline">
-                                                @csrf @method('DELETE')
-                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?')">Hapus</button>
+                <!-- Tabel Data User -->
+                <div class="table-responsive wow fadeInUp" data-wow-delay="0.3s">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="bg-dark text-white text-center">
+                            <tr>
+                                <th style="width: 60px;">No</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th style="width: 150px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @forelse ($users as $user)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ Str::limit('********', 10) }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning text-white">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger" type="submit">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
                                             </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>  
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-muted py-4">
+                                        <i class="fa fa-folder-open fa-2x mb-2 text-secondary"></i><br>
+                                        Belum ada data user untuk ditampilkan.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            @else
+            <!-- Card Minimalis Guest - Tulisan Kiri -->
+            <div class="row g-3">
+                @forelse ($users as $user)
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm p-3">
+                            <!-- Icon -->
+                            <div class="mb-2 text-center">
+                                <i class="fa fa-user fa-2x text-secondary"></i>
+                            </div>
+                            <!-- Info User -->
+                            <div class="text-start">
+                                <h6 class="mb-1">{{ $user->name }}</h6>
+                                <p class="mb-1"><small><strong>Email:</strong> {{ $user->email }}</small></p>
+                                <p class="mb-0"><small><strong>Password:</strong> ********</small></p>
+                            </div>
+                        </div>
                     </div>
+                @empty
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fa fa-folder-open fa-2x mb-2 text-secondary"></i><br>
+                        Belum ada data user untuk ditampilkan.
+                    </div>
+                @endforelse
+            </div>
+            @endif
+
         </div>
+    </div>
 </div>
 @endsection

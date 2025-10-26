@@ -1,8 +1,6 @@
-@extends('layouts.guest.app')
+@extends('guest.layouts.guest.app')
 
 @section('content')
-
-         {{--Start main content}}
         <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="bg-white shadow" style="padding: 35px;">
@@ -45,7 +43,4 @@
                 </div>
             </div>
         </div>
-         {{--Start main content--}}
-
-@endsecion
-       
+@endsection

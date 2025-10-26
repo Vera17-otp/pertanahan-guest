@@ -21,5 +21,6 @@ class DokumenPersil extends Model
         'jenis_dokumen',
         'nomor',
         'keterangan',
+        'file_dokumen'
     ];
 }

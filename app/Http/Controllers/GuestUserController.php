@@ -28,11 +28,12 @@ class GuestUserController extends Controller
         ]);
 
         $data = $request->all();
+        $data['name'] = strtolower($request->name);
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
 
-        return redirect()->route('guest.user.index')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -51,7 +52,7 @@ class GuestUserController extends Controller
         ]);
 
         $data = $request->all();
-
+        $data['name'] = strtolower($request->name);
         if ($request->filled('password')) {
             $request->validate(['password' => 'min:8|confirmed']);
             $data['password'] = Hash::make($request->password);
@@ -60,13 +61,13 @@ class GuestUserController extends Controller
         }
 
         $user->update($data);
-        return redirect()->route('guest.user.index')->with('success', 'Data user berhasil diperbarui.');
+        return redirect()->route('user.index')->with('success', 'Data user berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('guest.user.index')->with('success', 'User berhasil dihapus!');
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus!');
     }
 }
