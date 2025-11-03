@@ -25,5 +25,6 @@
   <footer class="bg-dark text-white text-center py-2">
     <small>© 2025 Sistem Pertanahan. All Rights Reserved.</small>
   </footer>
+  
 </body>
 </html>

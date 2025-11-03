@@ -38,80 +38,49 @@
                 </div>
             @endif
 
+            <!-- Tombol Tambah Warga (jika login) -->
             @if (Auth::check())
-                <!-- Tombol Tambah Warga -->
                 <div class="d-flex justify-content-end mb-3">
                     <a href="{{ route('warga.create') }}" class="btn btn-primary shadow-sm wow fadeInRight" data-wow-delay="0.2s">
                         <i class="fa fa-plus me-2"></i> Tambah Warga
                     </a>
                 </div>
+            @endif
 
-                <!-- Tabel Data Warga -->
-                <div class="table-responsive wow fadeInUp" data-wow-delay="0.3s">
-                    <table class="table table-bordered table-hover align-middle">
-                        <thead class="bg-dark text-white text-center">
-                            <tr>
-                                <th style="width: 60px;">ID</th>
-                                <th>Nama Lengkap</th>
-                                <th>NIK</th>
-                                <th>No. KK</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Tempat Lahir</th>
-                                <th>Alamat Lengkap</th>
-                                <th style="width: 150px;">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @forelse ($warga as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->nama_lengkap }}</td>
-                                    <td>{{ $item->nik }}</td>
-                                    <td>{{ $item->no_kk }}</td>
-                                    <td>{{ $item->jenis_kelamin }}</td>
-                                    <td>{{ $item->tempat_lahir }}</td>
-                                    <td>{{ $item->alamat_lengkap }}</td>
-                                    <td>
-                                        <a href="{{route('warga.edit', $item->warga_id)}}" class="btn btn-sm btn-warning me-1">
+            <!-- CARD VIEW -->
+            <div class="row g-3 wow fadeInUp" data-wow-delay="0.3s">
+                @forelse ($warga as $item)
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body text-center">
+                                <!-- Icon -->
+                                <div class="mb-2">
+                                    <i class="fa fa-user fa-2x {{ $item->jenis_kelamin == 'Laki-laki' ? 'text-primary' : 'text-danger' }}"></i>
+                                </div>
+                                <!-- Info -->
+                                <h6 class="card-title mb-1 fw-bold">{{ $item->nama_lengkap }}</h6>
+                                <p class="mb-1"><small><strong>NIK:</strong> {{ $item->nik }}</small></p>
+                                <p class="mb-1"><small><strong>KK:</strong> {{ $item->no_kk }}</small></p>
+                                <p class="mb-1"><small><strong>Jenis Kelamin:</strong> {{ $item->jenis_kelamin }}</small></p>
+                                <p class="mb-1"><small><strong>Tempat Lahir:</strong> {{ $item->tempat_lahir }}</small></p>
+                                <p class="mb-2"><small><strong>Alamat:</strong> {{ Str::limit($item->alamat_lengkap, 40) }}</small></p>
+
+                                <!-- Tombol Aksi (hanya untuk admin login) -->
+                                @if (Auth::check())
+                                    <div class="d-flex justify-content-center gap-2 mt-2">
+                                        <a href="{{ route('warga.edit', $item->warga_id) }}" class="btn btn-sm btn-warning text-white">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('warga.destroy', $item->warga_id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="text-muted py-4">
-                                        <i class="fa fa-folder-open fa-2x mb-2 text-secondary"></i><br>
-                                        Belum ada data warga untuk ditampilkan.
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <!-- Card View untuk Guest -->
-            <div class="row g-3">
-                @forelse ($warga as $item)
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="card h-100 shadow-sm text-center p-2">
-
-                            <!-- Icon -->
-                            <div class="mb-2">
-                                <i class="fa fa-user fa-2x {{ $item->jenis_kelamin == 'Laki-laki' ? 'text-primary' : 'text-danger' }}"></i>
+                                    </div>
+                                @endif
                             </div>
-
-                            <!-- Info Warga -->
-                            <h6 class="card-title mb-1">{{ $item->nama_lengkap }}</h6>
-                            <p class="mb-1"><small><strong>NIK:</strong> {{ $item->nik }}</small></p>
-                            <p class="mb-1"><small><strong>Jenis:</strong> {{ $item->jenis_kelamin }}</small></p>
-                            <p class="mb-0"><small><strong>Alamat:</strong> {{ Str::limit($item->alamat_lengkap, 30) }}</small></p>
                         </div>
                     </div>
                 @empty
@@ -121,7 +90,7 @@
                     </div>
                 @endforelse
             </div>
-            @endif
+
         </div>
     </div>
 </div>

@@ -19,12 +19,22 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <a href="https://wa.me/6281234567890"
+   class="whatsapp-float"
+   target="_blank"
+   title="Hubungi Kami di WhatsApp">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+       alt="WhatsApp"
+       width="60"
+       height="60">
+</a>
 
     @include('guest.layouts.guest.css')
 </head>
 
 
 <body>
+
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -33,6 +43,7 @@
             </div>
         </div>
         <!-- Spinner End -->
+        @include('guest.layouts.guest.header')
 
         @yield('content')
 

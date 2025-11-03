@@ -23,7 +23,7 @@
         }
 
         .login-header {
-            background: url("https://i.ibb.co/wgVvYyV/land.jpg") center/cover no-repeat;
+            background: url("https://share.google/lssHNqbgfG9KY73OX") center/cover no-repeat;
             height: 150px;
             border-radius: 12px 12px 0 0;
         }

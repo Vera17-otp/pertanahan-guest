@@ -6,6 +6,7 @@ use App\Http\Controllers\PertanahanguestController;
 use App\Http\Controllers\GuestUserController;
 use App\Http\Controllers\WargaController;
 
+
 Route::prefix('guest')->group(function () {
     Route::resource('user', GuestUserController::class, ['as' => 'guest']);
 });
