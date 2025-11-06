@@ -29,7 +29,7 @@
        height="60">
 </a>
 
-    @include('guest.layouts.guest.css')
+    @include('layouts.guest.css')
 </head>
 
 
@@ -43,21 +43,22 @@
             </div>
         </div>
         <!-- Spinner End -->
-        @include('guest.layouts.guest.header')
+        @include('layouts.guest.header')
 
         @yield('content')
 
         <!-- Footer Start -->
-        @include('guest.layouts.guest.footer')
+        @include('layouts.guest.footer')
         <!-- Footer End -->
 
 
         <!-- Back to Top -->
+         
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
-@include('guest.layouts.guest.js')
+@include('layouts.guest.js')
 
 </body>
 

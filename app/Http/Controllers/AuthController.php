@@ -9,47 +9,54 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Tampilkan halaman login
+    // 🔹 Tampilkan halaman login
     public function index()
     {
-        return view('login-form');
+        return view('pages.login-form');
     }
 
-    // Proses login
+    // 🔹 Proses login
     public function login(Request $request)
     {
-        // Validasi input
         $request->validate([
-            'username' => 'required',
+            'email' => 'required|string',
             'password' => [
                 'required',
                 'min:3',
-                'regex:/[A-Z]/'
+                'regex:/[A-Z]/' // minimal ada huruf kapital
             ],
         ], [
-            'username.required' => 'Username wajib diisi.',
+            'email.required' => 'Email atau nama pengguna wajib diisi.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 3 karakter.',
             'password.regex' => 'Password harus mengandung minimal satu huruf kapital.',
         ]);
-        $name = strtolower($request->username);
-        $email = User::where('email', $request->email)->first();
-        $user = User::where('name', $name)->first();
 
-        if($email || $user && Hash::check($request->password, $user->password)){
+        // Bisa login pakai email atau nama
+        $loginValue = $request->input('email');
+        $fieldType = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+
+        $user = User::where($fieldType, strtolower($loginValue))->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
-            return redirect()->route('datapertanahan')->with('success', 'Login berhasil!');
+
+            return redirect()->route('pertanahanguest.index')->with('success', 'Login berhasil!');
         }
+
         return back()->withErrors([
-            'loginError'=>'Login gagal! password atau username salah.'
+            'loginError' => 'Login gagal! Email/nama atau password salah.',
         ])->withInput();
     }
 
-    public function logout(Request $request){
+    // 🔹 Logout user
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->back()->with('success', 'Anda telah logout.');
+
+        return redirect()->route('login')->with('success', 'Anda telah logout.');
     }
 }

@@ -1,4 +1,4 @@
-@extends('guest.layouts.guest.app')
+@extends('layouts.guest.app')
 
 @section('title', 'Tambah User')
 

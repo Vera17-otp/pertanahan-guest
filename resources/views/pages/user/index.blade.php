@@ -1,12 +1,8 @@
-@extends('guest.layouts.guest.app')
+@extends('layouts.guest.app')
 
 @section('content')
 <div class="container-xxl bg-white p-0">
-    <div class="container-fluid bg-dark px-0">
-        <div class="row gx-0">
-            <x-navbar />
-        </div>
-    </div>
+   
 
     <div class="container-fluid page-header mb-5 p-0"
          style="background-image: url('{{ asset('img/carousel-1.jpg') }}'); background-size: cover;">

@@ -78,7 +78,7 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input type="text" name="username" value="{{ old('username') }}" class="form-control" placeholder="Masukkan username">
+                <input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="Masukkan username">
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>

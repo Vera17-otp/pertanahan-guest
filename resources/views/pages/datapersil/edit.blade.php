@@ -1,12 +1,8 @@
-@extends('guest.layouts.guest.app')
+@extends('layouts.guest.app')
 
 @section('content')
     <!-- Navbar -->
-    <div class="container-fluid bg-dark px-0">
-        <div class="row gx-0">
-            <x-navbar />
-        </div>
-    </div>
+    
 
     <!-- Header -->
     <div class="container-fluid page-header mb-5 p-0"

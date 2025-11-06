@@ -1,10 +1,8 @@
-@extends('guest.layouts.guest.app')
+@extends('layouts.guest.app')
 
 @section('content')
-    {{-- Navbar --}}
-    <div class="row gx-0">
-        <x-navbar />
-    </div>
+    
+    
 
     {{-- Form Edit --}}
     <div class="container mt-5">

@@ -12,13 +12,13 @@ class PertanahanGuestController extends Controller
     public function index()
     {
         $dokumen = DokumenPersil::all();
-        return view('guest.datapertanahan', compact('dokumen'));
+        return view('pages.datapersil.datapertanahan', compact('dokumen'));
     }
 
     // Tampilkan form tambah
     public function create()
     {
-        return view('guest.create');
+        return view('pages.datapersil.create');
     }
 
     // Simpan data baru
@@ -50,7 +50,7 @@ class PertanahanGuestController extends Controller
     public function edit(DokumenPersil $dokumen_persil)
 
     {
-        return view('guest.edit', compact('dokumen_persil'));
+        return view('pages.datapersil.edit', compact('dokumen_persil'));
     }
 
     // Update data
