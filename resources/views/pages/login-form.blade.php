@@ -9,17 +9,21 @@
 
     <style>
         body {
-            background-color: #f2efe6; /* warna krem tanah */
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url("{{ asset('assets/img/hutan1.jpg') }}") center/cover no-repeat fixed;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            margin: 0;
         }
 
         .login-container {
             max-width: 500px;
             margin: 80px auto;
             padding: 40px;
-            background-color: #ffffff;
+            background-color: rgba(242, 203, 203, 0.9); /* transparan sedikit */
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .login-header {
@@ -64,6 +68,7 @@
     <div class="login-container">
         <div class="login-header"></div>
         <h2>Login Pertanahan</h2>
+
         @if($errors->any())
             <div class="alert alert-danger mt-3">
                 <ul class="mb-0">
@@ -74,7 +79,7 @@
             </div>
         @endif
 
-        <form action="{{route('login.process')}}" method="POST" class="mt-3">
+        <form action="{{ route('login.process') }}" method="POST" class="mt-3">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Username</label>
