@@ -19,15 +19,7 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <a href="https://wa.me/6281234567890"
-   class="whatsapp-float"
-   target="_blank"
-   title="Hubungi Kami di WhatsApp">
-  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-       alt="WhatsApp"
-       width="60"
-       height="60">
-</a>
+    
 
     @include('layouts.guest.css')
 </head>
@@ -55,7 +47,17 @@
         <!-- Back to Top -->
          
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="https://wa.me/6281234567890"
+   class="whatsapp-float"
+   target="_blank"
+   title="Hubungi Kami di WhatsApp">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+       alt="WhatsApp"
+       width="60"
+       height="60">
+</a>
     </div>
+    
 
     <!-- JavaScript Libraries -->
 @include('layouts.guest.js')
