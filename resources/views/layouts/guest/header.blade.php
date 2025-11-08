@@ -17,6 +17,7 @@
                         <i class="fa fa-phone-alt text-primary me-2"></i>
                         <p class="mb-0">+62 812 3456 7890</p>
                     </div>
+                    
                 </div>
                 <div class="col-lg-5 px-5 text-end">
                     <div class="d-inline-flex align-items-center py-2">
