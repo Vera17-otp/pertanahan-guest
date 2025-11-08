@@ -43,6 +43,8 @@
             @endif
 
             <!-- CARD VIEW -->
+
+            
             <div class="row g-3 wow fadeInUp" data-wow-delay="0.3s">
                 @forelse ($warga as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3">
