@@ -67,6 +67,13 @@
                                 </div>
                                 <a href="#" class="nav-item nav-link">Contact</a>
                             </div>
+
+                            <!-- Tombol Login -->
+                            <div class="d-flex align-items-center ms-auto">
+                                <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4 ms-3">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </a>
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -106,17 +113,11 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="row g-3">
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('assets/img/about-1.jpg') }}" style="margin-top: 25%;">
+                            <div class="col-12 text-center">
+                                <img class="img-fluid rounded wow zoomIn" data-wow-delay="0.1s" src="{{ asset('assets/img/pertanahan 4.jpg') }}" alt="Pertanahan Image 1">
                             </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="{{ asset('assets/img/about-2.jpg') }}">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s" src="{{ asset('assets/img/about-3.jpg') }}">
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="{{ asset('assets/img/about-4.jpg') }}">
+                            <div class="col-12 text-center">
+                                <img class="img-fluid rounded wow zoomIn" data-wow-delay="0.3s" src="{{ asset('assets/img/pertanahan 5.jpg') }}" alt="Pertanahan Image 2">
                             </div>
                         </div>
                     </div>
