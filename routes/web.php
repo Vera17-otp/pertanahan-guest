@@ -11,6 +11,8 @@ Route::prefix('guest')->group(function () {
     Route::resource('user', GuestUserController::class, ['as' => 'guest']);
 });
 
+
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 
 
