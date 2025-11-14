@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PertanahanguestController;
 use App\Http\Controllers\GuestUserController;
 use App\Http\Controllers\WargaController;
+use App\Http\Controllers\PersilController;
 
 
 Route::prefix('guest')->group(function () {
@@ -22,6 +23,16 @@ Route::prefix('guest')->group(function () {
     Route::put('/pertanahan/{dokumen_persil}', [PertanahanguestController::class, 'update'])->name('pertanahanguest.update');
     Route::delete('/pertanahan/{id}', [PertanahanguestController::class, 'destroy'])->name('pertanahanguest.destroy');
 });
+
+Route::prefix('persil')->group(function () {
+    Route::get('/', [PersilController::class, 'index'])->name('persil.index');
+    Route::get('/create', [PersilController::class, 'create'])->name('persil.create');
+    Route::post('/', [PersilController::class, 'store'])->name('persil.store');
+    Route::get('/edit/{persil}', [PersilController::class, 'edit'])->name('persil.edit');
+    Route::put('/{persil}', [PersilController::class, 'update'])->name('persil.update');
+    Route::delete('/{id}', [PersilController::class, 'destroy'])->name('persil.destroy');
+});
+
 
 Route::prefix('warga')->group(function (){
     Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');

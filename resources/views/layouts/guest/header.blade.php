@@ -53,6 +53,7 @@
                                 <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
                                 <a href="{{ route('user.index') }}" class="dropdown-item">User</a>
                                 <a href="{{ route('pertanahanguest.index') }}" class="dropdown-item">Pertanahan</a>
+                                <a href="{{ route('persil.index') }}" class="dropdown-item">Persil</a>
                             </div>
                         </div>
 
