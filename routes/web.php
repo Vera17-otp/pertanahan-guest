@@ -26,6 +26,8 @@ Route::prefix('guest')->group(function () {
     Route::delete('/pertanahan/{id}', [PertanahanguestController::class, 'destroy'])->name('pertanahanguest.destroy');
 });
 
+
+
 Route::prefix('persil')->group(function () {
     Route::get('/', [PersilController::class, 'index'])->name('persil.index');
     Route::get('/create', [PersilController::class, 'create'])->name('persil.create');
