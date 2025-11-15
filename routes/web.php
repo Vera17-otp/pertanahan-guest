@@ -30,8 +30,9 @@ Route::prefix('persil')->group(function () {
     Route::get('/', [PersilController::class, 'index'])->name('persil.index');
     Route::get('/create', [PersilController::class, 'create'])->name('persil.create');
     Route::post('/', [PersilController::class, 'store'])->name('persil.store');
-    Route::get('/edit/{persil}', [PersilController::class, 'edit'])->name('persil.edit');
-    Route::put('/{persil}', [PersilController::class, 'update'])->name('persil.update');
+    Route::get('/edit/{persil_id}', [PersilController::class, 'edit'])->name('persil.edit');
+Route::put('/{persil_id}', [PersilController::class, 'update'])->name('persil.update');
+
     Route::delete('/{id}', [PersilController::class, 'destroy'])->name('persil.destroy');
 });
 
