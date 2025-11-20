@@ -25,6 +25,8 @@ class GuestUserController extends Controller
             $query->where('role', $request->role);
         }
 
+        
+
         // 📌 Pagination
         $users = $query->paginate(8);
         $users->appends($request->all());
