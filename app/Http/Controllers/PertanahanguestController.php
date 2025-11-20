@@ -9,9 +9,27 @@ use Illuminate\Support\Facades\Storage;
 class PertanahanGuestController extends Controller
 {
     // Tampilkan semua data
-    public function index()
+    public function index(Request $request)
     {
-        $dokumen = DokumenPersil::all();
+        $query = DokumenPersil::query();
+
+        // SEARCH
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('jenis_dokumen', 'like', "%{$request->search}%")
+                  ->orWhere('nomor', 'like', "%{$request->search}%")
+                  ->orWhere('keterangan', 'like', "%{$request->search}%");
+            });
+        }
+
+        // FILTER
+        if ($request->filter) {
+            $query->where('jenis_dokumen', $request->filter);
+        }
+
+        // PAGINATION
+        $dokumen = $query->paginate(8)->withQueryString();
+
         return view('pages.datapersil.datapertanahan', compact('dokumen'));
     }
 
@@ -31,10 +49,12 @@ class PertanahanGuestController extends Controller
             'keterangan'    => 'nullable|string',
             'file_dokumen'  => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
+
         if ($request->hasFile('file_dokumen')) {
             $originalName = $request->file('file_dokumen')->getClientOriginalName();
             $imageName = $request->file('file_dokumen')->storeAs('dokumen_persil', $originalName, 'public');
         }
+
         DokumenPersil::create([
             'persil_id'     => $validated['persil_id'],
             'jenis_dokumen' => $validated['jenis_dokumen'],
@@ -48,7 +68,6 @@ class PertanahanGuestController extends Controller
 
     // Edit data
     public function edit(DokumenPersil $dokumen_persil)
-
     {
         return view('pages.datapersil.edit', compact('dokumen_persil'));
     }

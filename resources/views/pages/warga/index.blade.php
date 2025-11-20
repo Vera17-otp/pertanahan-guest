@@ -3,8 +3,6 @@
 @section('content')
 <div class="container-xxl bg-white p-0">
 
-    <!-- Navbar -->
-
     <!-- Header -->
     <div class="container-fluid page-header mb-5 p-0"
          style="background-image: url('{{ asset('img/carousel-1.jpg') }}'); background-size: cover;">
@@ -33,7 +31,7 @@
                 </div>
             @endif
 
-            <!-- Tombol Tambah Warga (jika login) -->
+            <!-- Tombol Tambah Warga -->
             @if (Auth::check())
                 <div class="d-flex justify-content-end mb-3">
                     <a href="{{ route('warga.create') }}" class="btn btn-primary shadow-sm wow fadeInRight" data-wow-delay="0.2s">
@@ -42,19 +40,60 @@
                 </div>
             @endif
 
-            <!-- CARD VIEW -->
+            <!-- 🔍 SEARCH + FILTER -->
+            <div class="row mb-4">
 
-            
+                <!-- SEARCH -->
+                <div class="col-md-4">
+                    <form method="GET" action="{{ route('warga.index') }}">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="Cari nama, nik, alamat..."
+                                   value="{{ request('search') }}">
+
+                            <button type="submit" class="btn btn-primary">Cari</button>
+
+                            @if(request('search'))
+                                <a href="{{ request()->fullUrlWithQuery(['search'=> null]) }}" class="btn btn-outline-secondary">
+                                    Clear
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FILTER JENIS KELAMIN -->
+                <div class="col-md-3">
+                    <form method="GET" action="{{ route('warga.index') }}">
+                        <select name="filter" class="form-select" onchange="this.form.submit()">
+                            <option value="">Filter: Jenis Kelamin</option>
+                            <option value="Laki-laki" {{ request('filter') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ request('filter') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                        </select>
+                    </form>
+                </div>
+
+                <!-- RESET FILTER -->
+                @if(request('filter'))
+                    <div class="col-md-2">
+                        <a href="{{ request()->fullUrlWithQuery(['filter' => null]) }}" class="btn btn-outline-secondary w-100">
+                            Reset Filter
+                        </a>
+                    </div>
+                @endif
+
+            </div>
+
+            <!-- CARD VIEW -->
             <div class="row g-3 wow fadeInUp" data-wow-delay="0.3s">
                 @forelse ($warga as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="card h-100 shadow-sm border-0">
                             <div class="card-body text-center">
-                                <!-- Icon -->
                                 <div class="mb-2">
                                     <i class="fa fa-user fa-2x {{ $item->jenis_kelamin == 'Laki-laki' ? 'text-primary' : 'text-danger' }}"></i>
                                 </div>
-                                <!-- Info -->
+
                                 <h6 class="card-title mb-1 fw-bold">{{ $item->nama_lengkap }}</h6>
                                 <p class="mb-1"><small><strong>NIK:</strong> {{ $item->nik }}</small></p>
                                 <p class="mb-1"><small><strong>KK:</strong> {{ $item->no_kk }}</small></p>
@@ -62,7 +101,6 @@
                                 <p class="mb-1"><small><strong>Tempat Lahir:</strong> {{ $item->tempat_lahir }}</small></p>
                                 <p class="mb-2"><small><strong>Alamat:</strong> {{ Str::limit($item->alamat_lengkap, 40) }}</small></p>
 
-                                <!-- Tombol Aksi (hanya untuk admin login) -->
                                 @if (Auth::check())
                                     <div class="d-flex justify-content-center gap-2 mt-2">
                                         <a href="{{ route('warga.edit', $item->warga_id) }}" class="btn btn-sm btn-warning text-white">
@@ -86,6 +124,11 @@
                         Belum ada data warga untuk ditampilkan.
                     </div>
                 @endforelse
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $warga->links('pagination::bootstrap-5') }}
             </div>
 
         </div>

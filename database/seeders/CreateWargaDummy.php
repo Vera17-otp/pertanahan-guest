@@ -16,16 +16,15 @@ class CreateWargaDummy extends Seeder
     {
         $faker = Faker::create('id_ID');
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             DB::table('wargas')->insert([
                 'nama_lengkap'   => $faker->name(),
-                'nik'            => $faker->numerify('################'), 
-                'no_kk'          => $faker->numerify('################'),
+                'nik'            => $faker->unique()->numerify('################'),
+                'no_kk'          => $faker->unique()->numerify('################'),
                 'jenis_kelamin'  => $faker->randomElement(['Laki-laki', 'Perempuan']),
                 'tempat_lahir'   => $faker->city(),
                 'alamat_lengkap' => $faker->address(),
             ]);
         }
-
     }
 }

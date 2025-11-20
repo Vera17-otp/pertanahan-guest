@@ -8,19 +8,34 @@ use Illuminate\Http\Request;
 
 class PersilController extends Controller
 {
-    // Tampilkan semua data persil
-    public function index()
+    // Tampilkan semua data persil + pagination + search + filter
+    public function index(Request $request)
     {
-        $persil = Persil::all();
+        $query = Persil::query();
+
+        // Search
+        if ($request->search) {
+            $query->where('kode_persil', 'LIKE', "%{$request->search}%")
+                  ->orWhere('alamat_lahan', 'LIKE', "%{$request->search}%")
+                  ->orWhere('penggunaan', 'LIKE', "%{$request->search}%");
+        }
+
+        // Filter berdasarkan pemilik
+        if ($request->pemilik_warga_id) {
+            $query->where('pemilik_warga_id', $request->pemilik_warga_id);
+        }
+
+        // Pagination
+        $persil = $query->paginate(10)->withQueryString();
+
         return view('pages.persil.index', compact('persil'));
     }
 
     // Tampilkan form tambah persil
     public function create()
     {
-        $warga = Warga::all();   // <-- WAJIB, biar dropdown punya data
-
-    return view('pages.persil.create', compact('warga'));
+        $warga = Warga::all();
+        return view('pages.persil.create', compact('warga'));
     }
 
     // Simpan data persil baru

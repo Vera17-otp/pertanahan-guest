@@ -17,10 +17,10 @@
     <div class="container-xxl py-5">
         <div class="container">
 
-            <!-- Judul -->
+            <!-- Judul Halaman -->
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title text-center text-primary text-uppercase">Manajemen Data</h6>
-                <h1 class="mb-4">Daftar <span class="text-primary text-uppercase">Persil</span></h1>
+                <h1 class="mb-4">Data <span class="text-primary text-uppercase">Persil</span></h1>
             </div>
 
             <!-- Alert Sukses -->
@@ -31,88 +31,90 @@
                 </div>
             @endif
 
-            <!-- Tombol Tambah (jika login) -->
+            <!-- 🔍 SEARCH + FILTER -->
+            <div class="row mb-4 justify-content-center">
+
+                <!-- SEARCH -->
+                <div class="col-md-5">
+                    <form method="GET" action="{{ route('persil.index') }}">
+                        <div class="input-group shadow-sm">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="Cari kode, alamat, penggunaan..."
+                                   value="{{ request('search') }}">
+
+                            <button type="submit" class="btn btn-primary">Cari</button>
+
+                            @if(request('search'))
+                                <a href="{{ request()->fullUrlWithQuery(['search'=> null]) }}" class="btn btn-outline-secondary">
+                                    Clear
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FILTER PEMILIK -->
+                <div class="col-md-3 mt-2 mt-md-0">
+                    <form method="GET" action="{{ route('persil.index') }}">
+                        <select name="pemilik_warga_id" class="form-select shadow-sm" onchange="this.form.submit()">
+                            <option value="">Filter: Pemilik</option>
+                            @foreach(App\Models\Warga::all() as $w)
+                                <option value="{{ $w->id }}" 
+                                    {{ request('pemilik_warga_id') == $w->id ? 'selected' : '' }}>
+                                    {{ $w->nama ?? 'Warga #' . $w->id }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Tombol Tambah -->
             @if (Auth::check())
-                <div class="d-flex justify-content-end mb-3">
-                    <a href="{{ route('persil.create') }}" class="btn btn-primary shadow-sm wow fadeInRight">
+                <div class="d-flex justify-content-end mb-4">
+                    <a href="{{ route('persil.create') }}" class="btn btn-primary shadow-sm">
                         <i class="fa fa-plus me-2"></i> Tambah Persil
                     </a>
                 </div>
             @endif
 
             <!-- CARD VIEW -->
-            <div class="row g-3 wow fadeInUp">
+            <div class="row g-3 wow fadeInUp" data-wow-delay="0.3s">
 
                 @forelse ($persil as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="card h-100 shadow-sm border-0">
 
-                            <div class="card-body text-start">
+                            <div class="card-body text-center">
 
-                                <!-- Icon Persil -->
-                                <div class="text-center mb-3">
-                                    <i class="fa fa-map fa-3x text-primary"></i>
+                                <div class="mb-2">
+                                    <i class="fa fa-map fa-2x text-primary"></i>
                                 </div>
 
-                                <!-- Data Persil -->
-                                <h6 class="fw-bold mb-1">Kode: {{ $item->kode_persil }}</h6>
+                                <h6 class="fw-bold mb-1">{{ $item->kode_persil }}</h6>
 
-                                <p class="mb-1">
-                                    <small><strong>Pemilik:</strong> 
-                                        {{ $item->pemilik_warga_id ?? '-' }}
-                                    </small>
-                                </p>
+                                <p class="mb-1"><small><strong>Pemilik:</strong> {{ $item->pemilik_warga_id ?? '-' }}</small></p>
+                                <p class="mb-1"><small><strong>Luas:</strong> {{ $item->luas_m2 ? $item->luas_m2.' m²' : '-' }}</small></p>
+                                <p class="mb-1"><small><strong>Penggunaan:</strong> {{ $item->penggunaan ?? '-' }}</small></p>
+                                <p class="mb-1"><small><strong>Alamat:</strong> {{ Str::limit($item->alamat_lahan, 40) }}</small></p>
+                                <p class="mb-1"><small><strong>RT/RW:</strong> {{ ($item->rt ?? '-') . '/' . ($item->rw ?? '-') }}</small></p>
 
-                                <p class="mb-1">
-                                    <small><strong>Luas:</strong> 
-                                        {{ $item->luas_m2 ? $item->luas_m2 . ' m²' : '-' }}
-                                    </small>
-                                </p>
-
-                                <p class="mb-1">
-                                    <small><strong>Penggunaan:</strong> 
-                                        {{ $item->penggunaan ?? '-' }}
-                                    </small>
-                                </p>
-
-                                <p class="mb-1">
-                                    <small><strong>Alamat:</strong> 
-                                        {{ $item->alamat_lahan ?? '-' }}
-                                    </small>
-                                </p>
-
-                                <p class="mb-1">
-                                    <small><strong>RT/RW:</strong> 
-                                        {{ ($item->rt ?? '-') . '/' . ($item->rw ?? '-') }}
-                                    </small>
-                                </p>
-
-                                <!-- Aksi -->
-                                <!-- Aksi -->
-@if (Auth::check())
-    <div class="d-flex justify-content-center gap-2 mt-2">
-
-        <!-- Tombol Edit -->
-        <a href="{{ route('persil.edit', $item->id) }}" 
-           class="btn btn-sm btn-warning text-white">
-            <i class="fa fa-edit"></i>
-        </a>
-
-        <!-- Tombol Hapus -->
-        <form action="{{ route('persil.destroy', $item->id) }}" 
-              method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                    onclick="return confirm('Yakin ingin menghapus data ini?')"
-                    class="btn btn-sm btn-danger">
-                <i class="fa fa-trash"></i>
-            </button>
-        </form>
-
-    </div>
-@endif
-
+                                @if (Auth::check())
+                                    <div class="d-flex justify-content-center gap-2 mt-3">
+                                        <a href="{{ route('persil.edit', $item->id) }}" class="btn btn-sm btn-warning text-white">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('persil.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
 
                             </div>
                         </div>
@@ -121,10 +123,15 @@
                 @empty
                     <div class="col-12 text-center text-muted py-4">
                         <i class="fa fa-folder-open fa-2x mb-2 text-secondary"></i><br>
-                        Tidak ada data persil yang tersedia.
+                        Tidak ada data persil tersedia.
                     </div>
                 @endforelse
 
+            </div>
+
+            <!-- PAGINATION (RAPIH & TENGAH) -->
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $persil->links('pagination::bootstrap-5') }}
             </div>
 
         </div>

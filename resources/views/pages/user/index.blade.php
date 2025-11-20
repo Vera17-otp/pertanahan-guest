@@ -3,7 +3,6 @@
 @section('content')
 <div class="container-xxl bg-white p-0">
    
-
     <div class="container-fluid page-header mb-5 p-0"
          style="background-image: url('{{ asset('img/carousel-1.jpg') }}'); background-size: cover;">
         <div class="container-fluid page-header-inner py-5">
@@ -23,9 +22,46 @@
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
+
+            <!-- 🔍 SEARCH + FILTER -->
+            <div class="row mb-4 justify-content-between">
+
+                <!-- SEARCH -->
+                <div class="col-md-6">
+                    <form method="GET" action="{{ route('user.index') }}">
+                        <div class="input-group">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                   placeholder="Cari nama atau email..."
+                                   class="form-control">
+
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+
+                            @if(request('search'))
+                                <a href="{{ route('user.index') }}" class="btn btn-outline-secondary" id="clear-search">
+                                    Clear
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+
+                <!-- FILTER (opsional) -->
+                <div class="col-md-3">
+                    <form method="GET" action="{{ route('user.index') }}">
+                        <select name="role" class="form-select" onchange="this.form.submit()">
+                            <option value="">-- Filter Role --</option>
+                            <option value="admin" {{ request('role')=='admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="user" {{ request('role')=='user' ? 'selected' : '' }}>User</option>
+                        </select>
+                    </form>
+                </div>
+
+            </div>
 
             @if (Auth::check())
                 <div class="d-flex justify-content-end mb-3">
@@ -34,7 +70,7 @@
                     </a>
                 </div>
 
-                <!-- ✅ Ubah Table Jadi Card Grid -->
+                <!-- Card Grid Admin -->
                 <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
                     @forelse ($users as $user)
                         <div class="col-sm-6 col-md-4 col-lg-3">
@@ -70,8 +106,9 @@
                         </div>
                     @endforelse
                 </div>
+
             @else
-                <!-- ✅ Tampilan Guest Tetap -->
+                <!-- Card Grid Guest -->
                 <div class="row g-3">
                     @forelse ($users as $user)
                         <div class="col-sm-6 col-md-4 col-lg-3">
@@ -94,11 +131,17 @@
                     @endforelse
                 </div>
             @endif
+
+            <!-- PAGINATION -->
+            <div class="d-flex justify-content-center mt-4">
+                {{ $users->links('pagination::bootstrap-5') }}
+            </div>
+
         </div>
     </div>
 </div>
 
-<!-- ✅ CSS bawaan tambahan ringan -->
+
 <style>
 .card:hover {
     transform: translateY(-5px);
@@ -106,4 +149,5 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 </style>
+
 @endsection

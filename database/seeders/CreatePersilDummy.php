@@ -25,7 +25,7 @@ class CreatePersilDummy extends Seeder
             return;
         }
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             DB::table('persil')->insert([
                 'kode_persil'       => 'PRS-' . strtoupper($faker->bothify('??###')),
                 'pemilik_warga_id'  => $faker->randomElement($wargaIds),

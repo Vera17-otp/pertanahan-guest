@@ -10,10 +10,28 @@ class WargaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $warga = Warga::all();
-        return view('pages.warga.index', compact('warga'));
+        $query = Warga::query();
+
+    // SEARCH
+    if ($request->search) {
+        $query->where(function($q) use ($request) {
+            $q->where('nama_lengkap', 'like', '%'.$request->search.'%')
+              ->orWhere('nik', 'like', '%'.$request->search.'%')
+              ->orWhere('alamat_lengkap', 'like', '%'.$request->search.'%');
+        });
+    }
+
+    // FILTER JENIS KELAMIN
+    if ($request->filter) {
+        $query->where('jenis_kelamin', $request->filter);
+    }
+
+    // PAGINATION
+    $warga = $query->paginate(10)->withQueryString();
+
+    return view('pages.warga.index', compact('warga'));
     }
 
     /**

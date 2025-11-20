@@ -8,9 +8,27 @@ use Illuminate\Support\Facades\Hash;
 
 class GuestUserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $query = User::query();
+
+        // 🔍 Search
+        if ($request->has('search') && $request->search != '') {
+            $query->where(function($q) use ($request){
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // 🔽 Filter (jika tidak ada role bisa dihapus)
+        if ($request->has('role') && $request->role != '') {
+            $query->where('role', $request->role);
+        }
+
+        // 📌 Pagination
+        $users = $query->paginate(8);
+        $users->appends($request->all());
+
         return view('pages.user.index', compact('users'));
     }
 
@@ -53,6 +71,7 @@ class GuestUserController extends Controller
 
         $data = $request->all();
         $data['name'] = strtolower($request->name);
+
         if ($request->filled('password')) {
             $request->validate(['password' => 'min:8|confirmed']);
             $data['password'] = Hash::make($request->password);
