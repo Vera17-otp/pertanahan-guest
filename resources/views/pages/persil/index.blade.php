@@ -88,25 +88,31 @@
                                 </p>
 
                                 <!-- Aksi -->
-                                @if (Auth::check())
-                                    <div class="d-flex justify-content-center gap-2 mt-2">
-                                        <a href="{{ route('persil.edit', $item->persil_id) }}"
-                                           class="btn btn-sm btn-warning text-white">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                <!-- Aksi -->
+@if (Auth::check())
+    <div class="d-flex justify-content-center gap-2 mt-2">
 
-                                        <form action="{{ route('persil.destroy', $item->persil_id) }}" 
-                                              method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" 
-                                                    onclick="return confirm('Yakin ingin menghapus data ini?')"
-                                                    class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                @endif
+        <!-- Tombol Edit -->
+        <a href="{{ route('persil.edit', $item->id) }}" 
+           class="btn btn-sm btn-warning text-white">
+            <i class="fa fa-edit"></i>
+        </a>
+
+        <!-- Tombol Hapus -->
+        <form action="{{ route('persil.destroy', $item->id) }}" 
+              method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit"
+                    onclick="return confirm('Yakin ingin menghapus data ini?')"
+                    class="btn btn-sm btn-danger">
+                <i class="fa fa-trash"></i>
+            </button>
+        </form>
+
+    </div>
+@endif
+
 
                             </div>
                         </div>

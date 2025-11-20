@@ -12,6 +12,7 @@ Route::prefix('guest')->group(function () {
     Route::resource('user', GuestUserController::class, ['as' => 'guest']);
 });
 
+Route::resource('persil', PersilController::class);
 
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
