@@ -11,17 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seeder untuk user pertama (akun admin)
-        //$this->call(UserSeeder::class);
-
-        // Seeder untuk data dummy lainnya
-        //$this->call([
-            //CreateWargaDummy::class,
-            //CreatePersilDummy::class,
-            //CreateDokumenPersilDummy::class,
+        // Seeder untuk user dummy
         $this->call(CreateUserDummy::class);
+
+        // Seeder warga
         $this->call(CreateWargaDummy::class);
 
+        // Seeder persil
+        $this->call(CreatePersilDummy::class);
 
+        // Seeder dokumen persil (kalau ada)
+        // $this->call(CreateDokumenPersilDummy::class);
+
+        // Seeder peta persil
+        $this->call(CreatePetaPersilDummy::class);
     }
 }

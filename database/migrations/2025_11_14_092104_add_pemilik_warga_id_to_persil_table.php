@@ -6,21 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
-{
-    Schema::table('persil', function (Blueprint $table) {
-        $table->unsignedBigInteger('pemilik_warga_id')->nullable()->after('kode_persil');
-    });
-}
+    {
+        Schema::table('persil', function (Blueprint $table) {
 
-public function down()
-{
-    Schema::table('persil', function (Blueprint $table) {
-        $table->dropColumn('pemilik_warga_id');
-    });
-}
+            // HANYA tambah kolom jika belum ada
+            if (!Schema::hasColumn('persil', 'pemilik_warga_id')) {
+                $table->unsignedBigInteger('pemilik_warga_id')->nullable()->after('kode_persil');
+            }
+        });
+    }
 
+    public function down()
+    {
+        Schema::table('persil', function (Blueprint $table) {
+
+            // HANYA hapus kolom jika ada
+            if (Schema::hasColumn('persil', 'pemilik_warga_id')) {
+                $table->dropColumn('pemilik_warga_id');
+            }
+        });
+    }
 };
