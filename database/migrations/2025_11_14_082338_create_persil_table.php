@@ -8,75 +8,31 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('persil', function (Blueprint $table) {
+        Schema::create('persil', function (Blueprint $table) {
+            $table->id('persil_id');
 
-            if (!Schema::hasColumn('persil', 'kode_persil')) {
-                $table->string('kode_persil')->unique()->after('id');
-            }
+            $table->string('kode_persil')->unique();
 
-            if (!Schema::hasColumn('persil', 'pemilik_warga_id')) {
-                $table->unsignedBigInteger('pemilik_warga_id')->after('kode_persil');
-            }
+            $table->unsignedBigInteger('pemilik_warga_id')->nullable();
 
-            if (!Schema::hasColumn('persil', 'luas_m2')) {
-                $table->integer('luas_m2')->nullable()->after('pemilik_warga_id');
-            }
+            $table->integer('luas_m2')->nullable();
+            $table->string('penggunaan')->nullable();
+            $table->string('alamat_lahan')->nullable();
 
-            if (!Schema::hasColumn('persil', 'penggunaan')) {
-                $table->string('penggunaan')->nullable()->after('luas_m2');
-            }
+            $table->string('rt', 10)->nullable();
+            $table->string('rw', 10)->nullable();
 
-            if (!Schema::hasColumn('persil', 'alamat_lahan')) {
-                $table->string('alamat_lahan')->nullable()->after('penggunaan');
-            }
+            $table->timestamps();
 
-            if (!Schema::hasColumn('persil', 'rt')) {
-                $table->string('rt')->nullable()->after('alamat_lahan');
-            }
-
-            if (!Schema::hasColumn('persil', 'rw')) {
-                $table->string('rw')->nullable()->after('rt');
-            }
-
-            // FK (hanya kalau belum ada!)
-            if (!Schema::hasColumn('persil', 'pemilik_warga_id')) {
-                $table->foreign('pemilik_warga_id')->references('id')->on('wargas')->onDelete('cascade');
-            }
+            // FOREIGN KEY BENAR
+            $table->foreign('pemilik_warga_id')
+                  ->references('warga_id')->on('wargas')
+                  ->onDelete('set null');
         });
     }
 
     public function down(): void
     {
-        Schema::table('persil', function (Blueprint $table) {
-
-            if (Schema::hasColumn('persil', 'pemilik_warga_id')) {
-                $table->dropForeign(['pemilik_warga_id']);
-                $table->dropColumn('pemilik_warga_id');
-            }
-
-            if (Schema::hasColumn('persil', 'kode_persil')) {
-                $table->dropColumn('kode_persil');
-            }
-
-            if (Schema::hasColumn('persil', 'luas_m2')) {
-                $table->dropColumn('luas_m2');
-            }
-
-            if (Schema::hasColumn('persil', 'penggunaan')) {
-                $table->dropColumn('penggunaan');
-            }
-
-            if (Schema::hasColumn('persil', 'alamat_lahan')) {
-                $table->dropColumn('alamat_lahan');
-            }
-
-            if (Schema::hasColumn('persil', 'rt')) {
-                $table->dropColumn('rt');
-            }
-
-            if (Schema::hasColumn('persil', 'rw')) {
-                $table->dropColumn('rw');
-            }
-        });
+        Schema::dropIfExists('persil');
     }
 };

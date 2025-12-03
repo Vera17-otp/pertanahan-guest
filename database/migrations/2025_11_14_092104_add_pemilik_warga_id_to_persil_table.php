@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('persil', function (Blueprint $table) {
 
             // HANYA tambah kolom jika belum ada
-            if (!Schema::hasColumn('persil', 'pemilik_warga_id')) {
+            if (! Schema::hasColumn('persil', 'pemilik_warga_id')) {
                 $table->unsignedBigInteger('pemilik_warga_id')->nullable()->after('kode_persil');
             }
         });
@@ -21,10 +21,14 @@ return new class extends Migration
     {
         Schema::table('persil', function (Blueprint $table) {
 
-            // HANYA hapus kolom jika ada
+            // Hapus foreign key dulu kalau ada
+            $table->dropForeign(['pemilik_warga_id']);
+
+            // Baru hapus kolom
             if (Schema::hasColumn('persil', 'pemilik_warga_id')) {
                 $table->dropColumn('pemilik_warga_id');
             }
         });
     }
+
 };

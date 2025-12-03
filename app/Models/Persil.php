@@ -15,7 +15,12 @@ class Persil extends Model
     // Primary Key
     protected $primaryKey = 'persil_id';
 
-    // Kolom yang bisa diisi massal
+    // Tambahkan ini ⬇⬇⬇
+    public function getRouteKeyName()
+    {
+        return 'persil_id';
+    }
+
     protected $fillable = [
         'kode_persil',
         'pemilik_warga_id',

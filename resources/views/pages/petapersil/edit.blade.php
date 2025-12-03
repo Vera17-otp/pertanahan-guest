@@ -21,10 +21,9 @@
                         Form Edit Peta Persil
                     </h5>
 
-                    <form action="{{ route('peta_persil.update', $peta->peta_id) }}"
-                          method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                    <form action="{{ route('peta_persil.update', $peta->peta_id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                     @method('PUT')
 
                         <div class="row g-3">
 

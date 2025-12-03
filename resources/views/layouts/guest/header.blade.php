@@ -52,9 +52,10 @@
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="{{ route('warga.index') }}" class="dropdown-item">Warga</a>
                                 <a href="{{ route('user.index') }}" class="dropdown-item">User</a>
-                                <a href="{{ route('pertanahanguest.index') }}" class="dropdown-item">Pertanahan</a>
+                                <a href="{{ route('pertanahanguest.index') }}" class="dropdown-item">DokumenPersil</a>
                                 <a href="{{ route('persil.index') }}" class="dropdown-item">Persil</a>
                                 <a href="{{ route('peta_persil.index') }}" class="dropdown-item">PetaPersil</a>
+                                <a href="{{ route('sengketapersil.index') }}" class="dropdown-item">SengketaPersil</a>
                             </div>
                         </div>
 

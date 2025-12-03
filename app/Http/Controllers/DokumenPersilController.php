@@ -6,7 +6,7 @@ use App\Models\DokumenPersil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PertanahanGuestController extends Controller
+class DokumenPersilController extends Controller
 {
     // Tampilkan semua data
     public function index(Request $request)

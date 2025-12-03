@@ -2,11 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PertanahanguestController;
+use App\Http\Controllers\DokumenPersilController;
 use App\Http\Controllers\GuestUserController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\PersilController;
 use App\Http\Controllers\PetaPersilController;
+use App\Http\Controllers\SengketaPersilController;
+
+Route::prefix('sengketapersil')->group(function () {
+    Route::get('/', [SengketaPersilController::class, 'index'])->name('sengketapersil.index');
+    Route::get('/create', [SengketaPersilController::class, 'create'])->name('sengketapersil.create');
+    Route::post('/', [SengketaPersilController::class, 'store'])->name('sengketapersil.store');
+    Route::get('/edit/{sengketa}', [SengketaPersilController::class, 'edit'])->name('sengketapersil.edit');
+    Route::put('/{sengketa}', [SengketaPersilController::class, 'update'])->name('sengketapersil.update');
+    Route::delete('/{id}', [SengketaPersilController::class, 'destroy'])->name('sengketapersil.destroy');
+});
+
+
+Route::resource('persil', PersilController::class);
 
 
 Route::prefix('guest')->group(function () {
@@ -20,12 +33,12 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 
 
 Route::prefix('guest')->group(function () {
-    Route::get('/pertanahan', [PertanahanguestController::class, 'index'])->name('pertanahanguest.index');
-    Route::get('/pertanahan/create', [PertanahanguestController::class, 'create'])->name('pertanahanguest.create');
-    Route::post('/pertanahan', [PertanahanguestController::class, 'store'])->name('pertanahanguest.store');
-    Route::get('/pertanahan/{dokumen_persil}/edit', [PertanahanguestController::class, 'edit'])->name('pertanahanguest.edit');
-    Route::put('/pertanahan/{dokumen_persil}', [PertanahanguestController::class, 'update'])->name('pertanahanguest.update');
-    Route::delete('/pertanahan/{id}', [PertanahanguestController::class, 'destroy'])->name('pertanahanguest.destroy');
+    Route::get('/pertanahan', [DokumenPersilController::class, 'index'])->name('pertanahanguest.index');
+    Route::get('/pertanahan/create', [DokumenPersilController::class, 'create'])->name('pertanahanguest.create');
+    Route::post('/pertanahan', [DokumenPersilController::class, 'store'])->name('pertanahanguest.store');
+    Route::get('/pertanahan/{dokumen_persil}/edit', [DokumenPersilController::class, 'edit'])->name('pertanahanguest.edit');
+    Route::put('/pertanahan/{dokumen_persil}', [DokumenPersilController::class, 'update'])->name('pertanahanguest.update');
+    Route::delete('/pertanahan/{id}', [DokumenPersilController::class, 'destroy'])->name('pertanahanguest.destroy');
 });
 
 
@@ -68,13 +81,14 @@ Route::prefix('peta_persil')->group(function () {
 });
 
 
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::get('/', [PertanahanGuestController::class, 'index'])->name('datapertanahan');
+Route::get('/', [DokumenPersilController::class, 'index'])->name('datapertanahan');
 
 Route::get('/about', function () {
     return view('pages.about');

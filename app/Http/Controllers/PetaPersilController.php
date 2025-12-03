@@ -48,25 +48,23 @@ class PetaPersilController extends Controller
             'lebar_m'   => 'required|numeric',
         ]);
 
-        PetaPersil::create([
-            'persil_id' => $validated['persil_id'],
-            'geojson'   => $validated['geojson'],
-            'panjang_m' => $validated['panjang_m'],
-            'lebar_m'   => $validated['lebar_m'],
-        ]);
+        PetaPersil::create($validated);
 
-        return redirect()->route('petapersil.index')->with('success', 'Peta Persil berhasil ditambahkan!');
+        return redirect()->route('peta_persil.index')->with('success', 'Peta Persil berhasil ditambahkan!');
     }
 
     // Edit data
-    public function edit(PetaPersil $peta_persil)
+    public function edit($id)
     {
-        return view('pages.petapersil.edit', compact('peta_persil'));
+        $peta = PetaPersil::findOrFail($id); // pakai $id sesuai route
+        return view('pages.petapersil.edit', compact('peta'));
     }
 
     // Update data
-    public function update(Request $request, PetaPersil $peta_persil)
+    public function update(Request $request, $id)
     {
+        $peta = PetaPersil::findOrFail($id); // pakai $id sesuai route
+
         $validated = $request->validate([
             'persil_id' => 'required|integer',
             'geojson'   => 'required|string',
@@ -74,10 +72,9 @@ class PetaPersilController extends Controller
             'lebar_m'   => 'required|numeric',
         ]);
 
-        // Update langsung
-        $peta_persil->update($validated);
+        $peta->update($validated);
 
-        return redirect()->route('petapersil.index')->with('success', 'Peta Persil berhasil diperbarui!');
+        return redirect()->route('peta_persil.index')->with('success', 'Peta Persil berhasil diperbarui!');
     }
 
     // Hapus data
@@ -86,6 +83,6 @@ class PetaPersilController extends Controller
         $peta = PetaPersil::findOrFail($id);
         $peta->delete();
 
-        return redirect()->route('petapersil.index')->with('success', 'Peta Persil berhasil dihapus!');
+        return redirect()->route('peta_persil.index')->with('success', 'Peta Persil berhasil dihapus!');
     }
 }
