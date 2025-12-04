@@ -8,6 +8,7 @@ use App\Http\Controllers\WargaController;
 use App\Http\Controllers\PersilController;
 use App\Http\Controllers\PetaPersilController;
 use App\Http\Controllers\SengketaPersilController;
+use App\Http\Controllers\JenisPenggunaanController;
 
 Route::prefix('sengketapersil')->group(function () {
     Route::get('/', [SengketaPersilController::class, 'index'])->name('sengketapersil.index');
@@ -80,6 +81,14 @@ Route::prefix('peta_persil')->group(function () {
     Route::delete('/{id}', [PetaPersilController::class, 'destroy'])->name('peta_persil.destroy');
 });
 
+Route::prefix('jenis_penggunaan')->group(function () {
+    Route::get('/', [JenisPenggunaanController::class, 'index'])->name('jenis_penggunaan.index');
+    Route::get('/create', [JenisPenggunaanController::class, 'create'])->name('jenis_penggunaan.create');
+    Route::post('/', [JenisPenggunaanController::class, 'store'])->name('jenis_penggunaan.store');
+    Route::get('/edit/{id}', [JenisPenggunaanController::class, 'edit'])->name('jenis_penggunaan.edit');
+    Route::put('/{id}', [JenisPenggunaanController::class, 'update'])->name('jenis_penggunaan.update');
+    Route::delete('/{id}', [JenisPenggunaanController::class, 'destroy'])->name('jenis_penggunaan.destroy');
+});
 
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');

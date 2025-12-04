@@ -56,6 +56,7 @@
                                 <a href="{{ route('persil.index') }}" class="dropdown-item">Persil</a>
                                 <a href="{{ route('peta_persil.index') }}" class="dropdown-item">PetaPersil</a>
                                 <a href="{{ route('sengketapersil.index') }}" class="dropdown-item">SengketaPersil</a>
+                                <a href="{{ route('jenis_penggunaan.index') }}" class="dropdown-item">JenisPenggunaan</a>
                             </div>
                         </div>
 
