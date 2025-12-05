@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,6 +11,11 @@ class AuthController extends Controller
     // 🔹 Tampilkan halaman login
     public function index()
     {
+        // if (Auth::check()) {
+        //     //Redirect ke halaman dashboard
+        //     return redirect()->route('pertanahanguest.index');
+        // }
+        // //Redirect ke halaman login
         return view('pages.login-form');
     }
 
@@ -19,22 +23,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string',
+            'email'    => 'required|string',
             'password' => [
                 'required',
                 'min:3',
-                'regex:/[A-Z]/' // minimal ada huruf kapital
+                'regex:/[A-Z]/', // minimal ada huruf kapital
             ],
         ], [
-            'email.required' => 'Email atau nama pengguna wajib diisi.',
+            'email.required'    => 'Email atau nama pengguna wajib diisi.',
             'password.required' => 'Password wajib diisi.',
-            'password.min' => 'Password minimal 3 karakter.',
-            'password.regex' => 'Password harus mengandung minimal satu huruf kapital.',
+            'password.min'      => 'Password minimal 3 karakter.',
+            'password.regex'    => 'Password harus mengandung minimal satu huruf kapital.',
         ]);
 
         // Bisa login pakai email atau nama
         $loginValue = $request->input('email');
-        $fieldType = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $fieldType  = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
 
         $user = User::where($fieldType, strtolower($loginValue))->first();
 

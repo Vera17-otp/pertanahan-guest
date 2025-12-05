@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -14,9 +13,9 @@ class GuestUserController extends Controller
 
         // 🔍 Search
         if ($request->has('search') && $request->search != '') {
-            $query->where(function($q) use ($request){
+            $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
             });
         }
 
@@ -24,8 +23,6 @@ class GuestUserController extends Controller
         if ($request->has('role') && $request->role != '') {
             $query->where('role', $request->role);
         }
-
-        
 
         // 📌 Pagination
         $users = $query->paginate(8);
@@ -42,18 +39,20 @@ class GuestUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'role'     => 'required|in:admin,user',
         ]);
 
-        $data = $request->all();
-        $data['name'] = strtolower($request->name);
-        $data['password'] = Hash::make($request->password);
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+            'role'     => $request->role,
+        ]);
 
-        User::create($data);
-
-        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -67,11 +66,11 @@ class GuestUserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:100',
+            'name'  => 'required|string|max:100',
             'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
-        $data = $request->all();
+        $data         = $request->all();
         $data['name'] = strtolower($request->name);
 
         if ($request->filled('password')) {

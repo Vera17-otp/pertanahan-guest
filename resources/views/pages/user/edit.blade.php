@@ -1,9 +1,6 @@
 @extends('layouts.guest.app')
 
 @section('content')
-    
-    
-
     {{-- Form Edit --}}
     <div class="container mt-5">
         <h3 class="mb-4 text-center">Edit User (Guest)</h3>
@@ -14,44 +11,37 @@
 
             <div class="mb-3">
                 <label for="name" class="form-label">Nama</label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    value="{{ old('name', $user->name) }}"
-                    class="form-control"
-                >
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
+                    class="form-control">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value="{{ old('email', $user->email) }}"
-                    class="form-control"
-                >
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                    class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password <small class="text-muted">(kosongkan jika tidak diubah)</small></label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="form-control"
-                >
+                <label for="password" class="form-label">Password <small class="text-muted">(kosongkan jika tidak
+                        diubah)</small></label>
+                <input type="password" name="password" id="password" class="form-control">
             </div>
 
             <div class="mb-3">
                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <input
-                    type="password"
-                    name="password_confirmation"
-                    id="password_confirmation"
-                    class="form-control"
-                >
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select name="role" id="role" class="form-control">
+                    <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>
+                        User
+                    </option>
+                    <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>
+                        Admin
+                    </option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-success">Update</button>
