@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,14 +27,16 @@ class Persil extends Model
         'penggunaan',
         'alamat_lahan',
         'rt',
-        'rw'
+        'rw',
     ];
 
     /**
      * Relasi: 1 Persil memiliki banyak DokumenPersil
      */
-    public function dokumen()
+    public function media()
     {
-        return $this->hasMany(DokumenPersil::class, 'persil_id', 'persil_id');
+        return $this->hasMany(Media::class, 'ref_id')
+            ->where('ref_table', 'persil');
     }
+
 }

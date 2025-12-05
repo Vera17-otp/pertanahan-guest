@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Persil;
-use App\Models\Warga; 
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class PersilController extends Controller
@@ -16,8 +16,8 @@ class PersilController extends Controller
         // Search
         if ($request->search) {
             $query->where('kode_persil', 'LIKE', "%{$request->search}%")
-                  ->orWhere('alamat_lahan', 'LIKE', "%{$request->search}%")
-                  ->orWhere('penggunaan', 'LIKE', "%{$request->search}%");
+                ->orWhere('alamat_lahan', 'LIKE', "%{$request->search}%")
+                ->orWhere('penggunaan', 'LIKE', "%{$request->search}%");
         }
 
         // Filter berdasarkan pemilik
@@ -39,22 +39,41 @@ class PersilController extends Controller
     }
 
     // Simpan data persil baru
-    public function store(Request $request)
+    public function store(Request $request, Persil $persil)
     {
         $validated = $request->validate([
-            'kode_persil'       => 'required|string|max:255|unique:persil,kode_persil',
-            'pemilik_warga_id'  => 'nullable|integer',
-            'luas_m2'           => 'nullable|numeric',
-            'penggunaan'        => 'nullable|string|max:255',
-            'alamat_lahan'      => 'nullable|string|max:255',
-            'rt'                => 'nullable|string|max:10',
-            'rw'                => 'nullable|string|max:10',
+            'kode_persil'      => 'required|string|max:255|unique:persil,kode_persil',
+            'pemilik_warga_id' => 'nullable|integer',
+            'luas_m2'          => 'nullable|numeric',
+            'penggunaan'       => 'nullable|string|max:255',
+            'alamat_lahan'     => 'nullable|string|max:255',
+            'rt'               => 'nullable|string|max:10',
+            'rw'               => 'nullable|string|max:10',
+            'persil.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
-        Persil::create($validated);
+        $persil = Persil::create($validated);
+
+        if ($request->hasFile('persil')) {
+
+            foreach ($request->file('persil') as $index => $file) {
+
+                $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/persil'), $fileName);
+
+                Media::create([
+                    'ref_table'  => 'persil',
+                    'ref_id'     => $persil->persil_id,
+                    'file_name'  => $fileName,
+                    'caption'    => 'Foto Bidang Persil',
+                    'mime_type'  => $file->getClientMimeType(),
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('persil.index')
-                         ->with('success', 'Data persil berhasil ditambahkan!');
+            ->with('success', 'Data persil berhasil ditambahkan!');
     }
 
     // Form edit persil
@@ -67,19 +86,38 @@ class PersilController extends Controller
     public function update(Request $request, Persil $persil)
     {
         $validated = $request->validate([
-            'kode_persil'       => 'required|string|max:255|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
-            'pemilik_warga_id'  => 'nullable|integer',
-            'luas_m2'           => 'nullable|numeric',
-            'penggunaan'        => 'nullable|string|max:255',
-            'alamat_lahan'      => 'nullable|string|max:255',
-            'rt'                => 'nullable|string|max:10',
-            'rw'                => 'nullable|string|max:10',
+            'kode_persil'      => 'required|string|max:255|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
+            'pemilik_warga_id' => 'nullable|integer',
+            'luas_m2'          => 'nullable|numeric',
+            'penggunaan'       => 'nullable|string|max:255',
+            'alamat_lahan'     => 'nullable|string|max:255',
+            'rt'               => 'nullable|string|max:10',
+            'rw'               => 'nullable|string|max:10',
+            'persil.*'         => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
         $persil->update($validated);
 
+        if ($request->hasFile('persil')) {
+
+            foreach ($request->file('persil') as $index => $file) {
+
+                $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/persil'), $fileName);
+
+                Media::create([
+                    'ref_table'  => 'persil',
+                    'ref_id'     => $persil->persil_id,
+                    'file_name'  => $fileName,
+                    'caption'    => 'Foto Bidang Persil (Update)',
+                    'mime_type'  => $file->getClientMimeType(),
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
+
         return redirect()->route('persil.index')
-                         ->with('success', 'Data persil berhasil diperbarui!');
+            ->with('success', 'Data persil berhasil diperbarui!');
     }
 
     // Hapus persil
@@ -93,6 +131,6 @@ class PersilController extends Controller
         $persil->delete();
 
         return redirect()->route('persil.index')
-                         ->with('success', 'Data persil berhasil dihapus!');
+            ->with('success', 'Data persil berhasil dihapus!');
     }
 }

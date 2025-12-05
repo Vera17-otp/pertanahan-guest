@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('jenis_dokumen')->nullable();
             $table->string('nomor')->nullable();
             $table->text('keterangan')->nullable();
-            $table->string('file_dokumen');
 
             // Kolom timestamps (created_at dan updated_at)
             $table->timestamps();

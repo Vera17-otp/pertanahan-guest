@@ -23,6 +23,15 @@
 
                         <form action="{{ route('persil.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="row g-3">
 
                                 <!-- Kode Persil -->
@@ -97,7 +106,7 @@
                                 <!-- Upload Foto Bidang -->
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">Upload Foto Bidang (Opsional)</label>
-                                    <input type="file" class="form-control" name="foto_bidang" accept="image/*">
+                                    <input type="file" class="form-control" name="persil[]" accept="image/*" multiple>
                                 </div>
 
                                 <div class="col-12 mt-3">

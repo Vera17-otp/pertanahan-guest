@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +20,14 @@ class DokumenPersil extends Model
         'jenis_dokumen',
         'nomor',
         'keterangan',
-        'file_dokumen'
     ];
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'dokumen_id')
+            ->where('ref_table', 'dokumen_persil')
+            ->orderBy('sort_order');
+
+    }
+
 }

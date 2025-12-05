@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\SengketaPersil;
@@ -13,10 +12,10 @@ class SengketaPersilController extends Controller
 
         // Search
         if ($request->search) {
-            $query->where(function($q) use ($request) {
+            $query->where(function ($q) use ($request) {
                 $q->where('pihak_1', 'like', "%{$request->search}%")
-                  ->orWhere('pihak_2', 'like', "%{$request->search}%")
-                  ->orWhere('status', 'like', "%{$request->search}%");
+                    ->orWhere('pihak_2', 'like', "%{$request->search}%")
+                    ->orWhere('status', 'like', "%{$request->search}%");
             });
         }
 
@@ -33,15 +32,38 @@ class SengketaPersilController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'persil_id'    => 'required|integer',
-            'pihak_1'      => 'required|string|max:255',
-            'pihak_2'      => 'nullable|string|max:255',
-            'kronologi'    => 'nullable|string',
-            'status'       => 'nullable|string|max:50',
-            'penyelesaian' => 'nullable|string',
+            'persil_id'       => 'required|integer',
+            'pihak_1'         => 'required|string|max:255',
+            'pihak_2'         => 'nullable|string|max:255',
+            'kronologi'       => 'nullable|string',
+            'status'          => 'nullable|string|max:50',
+            'penyelesaian'    => 'nullable|string',
+            'foto_sengketa.*' => 'nullable|image|max:4096',
         ]);
 
-        SengketaPersil::create($validated);
+        // Create sengketa
+        $sengketa = SengketaPersil::create($validated);
+
+        // MULTIPLE FILES
+        if ($request->hasFile('foto_sengketa')) {
+
+            foreach ($request->file('foto_sengketa') as $index => $file) {
+
+                $name = time() . "_" . $index . "_" . $file->getClientOriginalName();
+                $mime = $file->getClientMimeType();
+
+                $file->move(public_path('uploads/sengketa'), $name);
+
+                \App\Models\Media::create([
+                    'ref_table'  => 'sengketa_persil',
+                    'ref_id'     => $sengketa->sengketa_id,
+                    'file_name'  => $name,
+                    'caption'    => 'Foto Sengketa',
+                    'mime_type'  => $mime,
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('sengketapersil.index')
             ->with('success', 'Data sengketa berhasil ditambahkan!');
@@ -55,15 +77,37 @@ class SengketaPersilController extends Controller
     public function update(Request $request, SengketaPersil $sengketa)
     {
         $validated = $request->validate([
-            'persil_id'    => 'required|integer',
-            'pihak_1'      => 'required|string|max:255',
-            'pihak_2'      => 'nullable|string|max:255',
-            'kronologi'    => 'nullable|string',
-            'status'       => 'nullable|string|max:50',
-            'penyelesaian' => 'nullable|string',
+            'persil_id'       => 'required|integer',
+            'pihak_1'         => 'required|string|max:255',
+            'pihak_2'         => 'nullable|string|max:255',
+            'kronologi'       => 'nullable|string',
+            'status'          => 'nullable|string|max:50',
+            'penyelesaian'    => 'nullable|string',
+            'foto_sengketa.*' => 'nullable|image|max:4096',
         ]);
 
         $sengketa->update($validated);
+
+        // MULTIPLE FILE UPLOAD
+        if ($request->hasFile('foto_sengketa')) {
+
+            foreach ($request->file('foto_sengketa') as $index => $file) {
+
+                $name = time() . "_" . $index . "_" . $file->getClientOriginalName();
+                $mime = $file->getClientMimeType();
+
+                $file->move(public_path('uploads/sengketa'), $name);
+
+                \App\Models\Media::create([
+                    'ref_table'  => 'sengketa_persil',
+                    'ref_id'     => $sengketa->sengketa_id,
+                    'file_name'  => $name,
+                    'caption'    => 'Foto Sengketa',
+                    'mime_type'  => $mime,
+                    'sort_order' => $index + 1,
+                ]);
+            }
+        }
 
         return redirect()->route('sengketapersil.index')
             ->with('success', 'Data sengketa berhasil diperbarui!');

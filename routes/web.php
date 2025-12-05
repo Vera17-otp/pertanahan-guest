@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokumenPersilController;
 use App\Http\Controllers\GuestUserController;
-use App\Http\Controllers\WargaController;
+use App\Http\Controllers\JenisPenggunaanController;
 use App\Http\Controllers\PersilController;
 use App\Http\Controllers\PetaPersilController;
 use App\Http\Controllers\SengketaPersilController;
-use App\Http\Controllers\JenisPenggunaanController;
+use App\Http\Controllers\WargaController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('sengketapersil')->group(function () {
     Route::get('/', [SengketaPersilController::class, 'index'])->name('sengketapersil.index');
@@ -19,19 +19,16 @@ Route::prefix('sengketapersil')->group(function () {
     Route::delete('/{id}', [SengketaPersilController::class, 'destroy'])->name('sengketapersil.destroy');
 });
 
-
 Route::resource('persil', PersilController::class);
-
 
 Route::prefix('guest')->group(function () {
     Route::resource('user', GuestUserController::class, ['as' => 'guest']);
 });
 
 Route::resource('persil', PersilController::class);
-
+// Route::resource('media', MediaController::class);
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
-
 
 Route::prefix('guest')->group(function () {
     Route::get('/pertanahan', [DokumenPersilController::class, 'index'])->name('pertanahanguest.index');
@@ -42,8 +39,6 @@ Route::prefix('guest')->group(function () {
     Route::delete('/pertanahan/{id}', [DokumenPersilController::class, 'destroy'])->name('pertanahanguest.destroy');
 });
 
-
-
 Route::prefix('persil')->group(function () {
     Route::get('/', [PersilController::class, 'index'])->name('persil.index');
     Route::get('/create', [PersilController::class, 'create'])->name('persil.create');
@@ -53,8 +48,7 @@ Route::prefix('persil')->group(function () {
     Route::delete('/{id}', [PersilController::class, 'destroy'])->name('persil.destroy');
 });
 
-
-Route::prefix('warga')->group(function (){
+Route::prefix('warga')->group(function () {
     Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
     Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
     Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
@@ -63,7 +57,7 @@ Route::prefix('warga')->group(function (){
     Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
 });
 
-Route::prefix('user')->group(function (){
+Route::prefix('user')->group(function () {
     Route::get('/user', [GuestUserController::class, 'index'])->name('user.index');
     Route::get('/user/create', [GuestUserController::class, 'create'])->name('user.create');
     Route::post('/user', [GuestUserController::class, 'store'])->name('user.store');
@@ -90,12 +84,9 @@ Route::prefix('jenis_penggunaan')->group(function () {
     Route::delete('/{id}', [JenisPenggunaanController::class, 'destroy'])->name('jenis_penggunaan.destroy');
 });
 
-
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
 
 Route::get('/', [DokumenPersilController::class, 'index'])->name('datapertanahan');
 

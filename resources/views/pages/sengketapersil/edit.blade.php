@@ -26,7 +26,8 @@
                             Form Edit Sengketa
                         </h5>
 
-                        <form action="{{ route('sengketapersil.update', $sengketa->sengketa_id) }}" method="POST">
+                        <form action="{{ route('sengketapersil.update', $sengketa->sengketa_id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -35,7 +36,7 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="number" name="persil_id" class="form-control"
-                                               value="{{ $sengketa->persil_id }}" required>
+                                            value="{{ $sengketa->persil_id }}" required>
                                         <label>Persil ID</label>
                                     </div>
                                 </div>
@@ -43,7 +44,7 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" name="pihak_1" class="form-control"
-                                               value="{{ $sengketa->pihak_1 }}" required>
+                                            value="{{ $sengketa->pihak_1 }}" required>
                                         <label>Pihak 1</label>
                                     </div>
                                 </div>
@@ -51,7 +52,7 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" name="pihak_2" class="form-control"
-                                               value="{{ $sengketa->pihak_2 }}" required>
+                                            value="{{ $sengketa->pihak_2 }}" required>
                                         <label>Pihak 2</label>
                                     </div>
                                 </div>
@@ -67,8 +68,11 @@
                                     <div class="form-floating">
                                         <select name="status" class="form-select" required>
                                             <option value="">Pilih Status</option>
-                                            <option value="Berlangsung" {{ $sengketa->status == 'Berlangsung' ? 'selected':'' }}>Berlangsung</option>
-                                            <option value="Selesai" {{ $sengketa->status == 'Selesai' ? 'selected':'' }}>Selesai</option>
+                                            <option value="Berlangsung"
+                                                {{ $sengketa->status == 'Berlangsung' ? 'selected' : '' }}>Berlangsung
+                                            </option>
+                                            <option value="Selesai" {{ $sengketa->status == 'Selesai' ? 'selected' : '' }}>
+                                                Selesai</option>
                                         </select>
                                         <label>Status</label>
                                     </div>
@@ -77,11 +81,36 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" name="penyelesaian" class="form-control"
-                                               value="{{ $sengketa->penyelesaian }}">
+                                            value="{{ $sengketa->penyelesaian }}">
                                         <label>Penyelesaian</label>
                                     </div>
                                 </div>
 
+                                <!-- ========== MULTIPLE MEDIA UPLOAD ========== -->
+                                <div class="col-12 mt-3">
+                                    <label class="form-label fw-semibold">Upload Foto Bukti Tambahan</label>
+                                    <input type="file" name="foto_sengketa[]" class="form-control" accept="image/*"
+                                        multiple>
+
+                                </div>
+
+                                <!-- ========== TAMPILKAN MEDIA YANG SUDAH ADA ========== -->
+                                @if ($sengketa->media && count($sengketa->media) > 0)
+                                    <div class="col-12 mt-3">
+                                        <label class="fw-semibold">Foto Bukti Sebelumnya:</label>
+
+                                        <div class="row g-3">
+                                            @foreach ($sengketa->media as $foto)
+                                                <div class="col-4 text-center">
+                                                    <img src="{{ asset('uploads/sengketa/' . $foto->file_name) }}"
+                                                        class="img-thumbnail mb-2" style="height:120px;object-fit:cover;">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <!-- Submit -->
                                 <div class="col-12 mt-3">
                                     <button class="btn btn-primary w-100 py-3" type="submit">
                                         <i class="fa fa-save me-2"></i> Perbarui Sengketa
@@ -90,6 +119,7 @@
 
                             </div>
                         </form>
+
 
                     </div>
 

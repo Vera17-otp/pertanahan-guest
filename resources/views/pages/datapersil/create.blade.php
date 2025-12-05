@@ -29,35 +29,40 @@
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" name="persil_id" placeholder="Persil ID" required>
+                                        <input type="number" class="form-control" name="persil_id" placeholder="Persil ID"
+                                            required>
                                         <label>Persil ID</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="jenis_dokumen" placeholder="Jenis Dokumen" required>
+                                        <input type="text" class="form-control" name="jenis_dokumen"
+                                            placeholder="Jenis Dokumen" required>
                                         <label>Jenis Dokumen</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="nomor" placeholder="Nomor Dokumen">
+                                        <input type="text" class="form-control" name="nomor"
+                                            placeholder="Nomor Dokumen">
                                         <label>Nomor Dokumen</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="keterangan" placeholder="Keterangan">
+                                        <input type="text" class="form-control" name="keterangan"
+                                            placeholder="Keterangan">
                                         <label>Keterangan</label>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="file_dokumen" class="form-label fw-semibold">Upload Dokumen</label>
-                                    <input type="file" name="file_dokumen" class="form-control" required>
+                                    <label class="form-label fw-semibold">Upload Foto Bidang (Opsional)</label>
+                                    <input type="file" class="form-control" name="dokumen_persil[]" accept="image/*"
+                                        multiple>
                                 </div>
 
                                 <div class="col-12 mt-3">

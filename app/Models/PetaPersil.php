@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +19,16 @@ class PetaPersil extends Model
         'persil_id',
         'geojson',
         'panjang_m',
-        'lebar_m'
+        'lebar_m',
     ];
+
+    // App\Models\PetaPersil.php
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'ref_id', 'peta_id')
+            ->where('ref_table', 'peta_persil')
+            ->orderBy('sort_order');
+    }
+
 }
