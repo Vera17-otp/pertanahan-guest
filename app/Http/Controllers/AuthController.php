@@ -46,7 +46,7 @@ class AuthController extends Controller
             Auth::login($user);
             $request->session()->regenerate();
 
-            return redirect()->route('home')->with('success', 'Login berhasil!');
+            return redirect()->route('about')->with('success', 'Login berhasil!');
         }
 
         return back()->withErrors([
