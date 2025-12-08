@@ -17,7 +17,7 @@
                         <i class="fa fa-phone-alt text-primary me-2"></i>
                         <p class="mb-0">+62 812 3456 7890</p>
                     </div>
-                    
+
                 </div>
                 <div class="col-lg-5 px-5 text-end">
                     <div class="d-inline-flex align-items-center py-2">
@@ -42,9 +42,9 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                        
                         <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Services</a>
+
                         <a href="room.html" class="nav-item nav-link">Rooms</a>
 
                         <div class="nav-item dropdown">

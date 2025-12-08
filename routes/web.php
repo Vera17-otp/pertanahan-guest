@@ -116,3 +116,7 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact')->middleware('checkislogin');
+
+Route::get('/home', function () {
+    return view('pages.homee');
+})->name('home')->middleware('checkislogin');
