@@ -1,24 +1,37 @@
 <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
-        <div class="col-lg-3 bg-dark d-none d-lg-block">
-            <a href="{{ url('/') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+
+        <!-- BAGIAN KIRI LOGO + JUDUL -->
+        <div class="col-lg-3 bg-dark d-none d-lg-flex align-items-center justify-content-center flex-column py-3">
+
+            <!-- 🔹 LOGO BARU DITAMBAHKAN -->
+            <img src="{{ asset('assets/img/logo_pertanahan.webp') }}"
+                 alt="Logo Pertanahan"
+                 style="height:60px;" class="mb-2">
+
+            <a href="{{ url('/') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex flex-column align-items-center">
                 <h1 class="m-0 text-primary text-uppercase">PERTANAHAN</h1>
             </a>
         </div>
 
+        <!-- BAGIAN KANAN -->
         <div class="col-lg-9">
-            <div class="row gx-0 bg-white d-none d-lg-flex">
+
+            <!-- Baris Kontak -->
+            <div class="row gx-0 bg-navy d-none d-lg-flex">
                 <div class="col-lg-7 px-5 text-start">
                     <div class="h-100 d-inline-flex align-items-center py-2 me-4">
-                        <i class="fa fa-envelope text-primary me-2"></i>
-                        <p class="mb-0">info@pertanahan.go.id</p>
-                    </div>
-                    <div class="h-100 d-inline-flex align-items-center py-2">
-                        <i class="fa fa-phone-alt text-primary me-2"></i>
-                        <p class="mb-0">+62 812 3456 7890</p>
-                    </div>
+    <i class="fa fa-envelope text-primary me-2"></i>
+    <p class="mb-0 text-white">info@pertanahan.go.id</p>
+</div>
+
+<div class="h-100 d-inline-flex align-items-center py-2">
+    <i class="fa fa-phone-alt text-primary me-2"></i>
+    <p class="mb-0 text-white">+62 812 3456 7890</p>
+</div>
 
                 </div>
+
                 <div class="col-lg-5 px-5 text-end">
                     <div class="d-inline-flex align-items-center py-2">
                         <a class="me-3" href="#"><i class="fab fa-facebook-f"></i></a>
@@ -30,9 +43,14 @@
                 </div>
             </div>
 
-            <!-- 🔹 Navbar Start -->
+            <!-- NAVBAR -->
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                <a href="{{ url('/') }}" class="navbar-brand d-block d-lg-none">
+
+                <!-- Logo Mobile -->
+                <a href="{{ url('/') }}" class="navbar-brand d-block d-lg-none d-flex align-items-center">
+                    <img src="{{ asset('assets/img/logo_pertanahan.webp') }}"
+                         alt="Logo Pertanahan"
+                         style="height:40px;" class="me-2">
                     <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
                 </a>
 
@@ -42,10 +60,10 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        
+
                         <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
 
-                        <a href="room.html" class="nav-item nav-link">Rooms</a>
+                        <a href="{{ route('identitas.pengembang') }}" class="nav-item nav-link">Identitas Pengembang</a>
 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Data</a>
@@ -63,18 +81,17 @@
                         <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                     </div>
 
-                    <!-- 🔸 Bagian Login/Logout -->
+                    <!-- LOGIN/LOGOUT -->
                     <div class="d-flex align-items-center">
                         @auth
                             <div class="dropdown">
-                                <a class="btn btn-outline-light dropdown-toggle py-2 px-4" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="btn btn-outline-light dropdown-toggle py-2 px-4" href="#" id="userDropdown" data-bs-toggle="dropdown">
                                     <i class="fa fa-user me-2"></i> {{ Auth::user()->name }}
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end rounded-0" aria-labelledby="userDropdown">
+                                <ul class="dropdown-menu dropdown-menu-end rounded-0">
                                     <li><a class="dropdown-item" href="{{ route('pertanahanguest.index') }}">Dashboard</a></li>
                                     <li>
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
+                                        <form action="{{ route('logout') }}" method="POST">@csrf
                                             <button type="submit" class="dropdown-item">Logout</button>
                                         </form>
                                     </li>
@@ -84,6 +101,7 @@
                             <a href="{{ route('login') }}" class="btn btn-primary rounded-0 py-2 px-4">Login</a>
                         @endauth
                     </div>
+
                 </div>
             </nav>
             <!-- 🔹 Navbar End -->

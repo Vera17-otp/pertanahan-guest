@@ -9,24 +9,28 @@ class DokumenPersilController extends Controller
 {
     // Tampilkan semua data
     public function index(Request $request)
-    {
-        $query = DokumenPersil::with('media'); // <= penting
+{
+    $user = auth()->user(); // <= tambah ini
 
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('jenis_dokumen', 'like', "%{$request->search}%")
-                    ->orWhere('nomor', 'like', "%{$request->search}%")
-                    ->orWhere('keterangan', 'like', "%{$request->search}%");
-            });
-        }
+    $query = DokumenPersil::with('media');
 
-        if ($request->filter) {
-            $query->where('jenis_dokumen', $request->filter);
-        }
-
-        $dokumen = $query->paginate(8)->withQueryString();
-        return view('pages.datapersil.datapertanahan', compact('dokumen'));
+    if ($request->search) {
+        $query->where(function ($q) use ($request) {
+            $q->where('jenis_dokumen', 'like', "%{$request->search}%")
+                ->orWhere('nomor', 'like', "%{$request->search}%")
+                ->orWhere('keterangan', 'like', "%{$request->search}%");
+        });
     }
+
+    if ($request->filter) {
+        $query->where('jenis_dokumen', $request->filter);
+    }
+
+    $dokumen = $query->paginate(8)->withQueryString();
+
+    return view('pages.datapersil.datapertanahan', compact('dokumen', 'user')); 
+}
+
 
     // Tampilkan form tambah
     public function create()

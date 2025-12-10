@@ -45,14 +45,19 @@ Route::prefix('guest')->group(function () {
 
 Route::prefix('persil')->group(function () {
     Route::group(['middleware' => ['checkrole:admin']], function () {
-        // List Route yang ingin diterapkan
         Route::get('/edit/{persil_id}', [PersilController::class, 'edit'])->name('persil.edit')->middleware('checkislogin');
         Route::put('/{persil_id}', [PersilController::class, 'update'])->name('persil.update')->middleware('checkislogin');
         Route::delete('/{id}', [PersilController::class, 'destroy'])->name('persil.destroy')->middleware('checkislogin');
     });
+
     Route::get('/', [PersilController::class, 'index'])->name('persil.index')->middleware('checkislogin');
     Route::get('/create', [PersilController::class, 'create'])->name('persil.create')->middleware('checkislogin');
     Route::post('/', [PersilController::class, 'store'])->name('persil.store')->middleware('checkislogin');
+
+    // Tambahkan route show ini
+    Route::get('/{persil_id}', [PersilController::class, 'show'])
+        ->name('persil.show')
+        ->middleware('checkislogin');
 });
 
 Route::prefix('warga')->group(function () {
@@ -120,3 +125,11 @@ Route::get('/contact', function () {
 Route::get('/home', function () {
     return view('pages.homee');
 })->name('home')->middleware('checkislogin');
+
+Route::get('/users/{id}/delete-profile', [GuestUserController::class, 'deleteProfileImage'])
+    ->name('user.delete.profile');
+
+
+Route::get('/identitas-pengembang', function () {
+    return view('pages.identitaspengembang');
+})->name('identitas.pengembang');

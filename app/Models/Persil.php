@@ -39,4 +39,9 @@ class Persil extends Model
             ->where('ref_table', 'persil');
     }
 
+    public function warga()
+    {
+        return $this->belongsTo(Warga::class, 'pemilik_warga_id', 'warga_id');
+    }
+
 }

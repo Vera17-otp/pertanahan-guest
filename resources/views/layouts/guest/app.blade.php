@@ -19,7 +19,7 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    
+
 
     @include('layouts.guest.css')
 </head>
@@ -34,6 +34,8 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
+     
+
         <!-- Spinner End -->
         @include('layouts.guest.header')
 
@@ -43,9 +45,8 @@
         @include('layouts.guest.footer')
         <!-- Footer End -->
 
-
-        <!-- Back to Top -->
          
+
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         <a href="https://wa.me/6281234567890"
    class="whatsapp-float"
@@ -57,7 +58,7 @@
        height="60">
 </a>
     </div>
-    
+
 
     <!-- JavaScript Libraries -->
 @include('layouts.guest.js')

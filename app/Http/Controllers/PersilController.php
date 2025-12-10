@@ -11,7 +11,7 @@ class PersilController extends Controller
     // Tampilkan semua data persil + pagination + search + filter
     public function index(Request $request)
     {
-        $query = Persil::query();
+        $query = Persil::query()->with('warga'); // Tambahkan eager loading
 
         // Search
         if ($request->search) {
