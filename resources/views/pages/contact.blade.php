@@ -40,7 +40,7 @@
                         <h4 class="fw-bold text-primary mb-3">Kantor Pertanahan Desa</h4>
 
                         <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>
-                            Jl. Raya Desa No. 12, Kecamatan Contoh, Kabupaten Contoh
+                            Bandung, Cianjur, Jl.Selajambek
                         </p>
 
                         <p class="mb-2"><i class="fa fa-phone-alt text-primary me-2"></i>

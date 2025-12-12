@@ -77,13 +77,13 @@
                                     <div class="col-md-6 mb-3">
                                         <div class="info-item">
                                             <i class="fas fa-university text-primary me-2"></i>
-                                            <strong>Universitas:</strong> Universitas Contoh
+                                            <strong>Universitas:</strong> Politeknik Caltex Riau
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <div class="info-item">
                                             <i class="fas fa-calendar text-primary me-2"></i>
-                                            <strong>Angkatan:</strong> 2023
+                                            <strong>Angkatan:</strong> 2024
                                         </div>
                                     </div>
                                 </div>
@@ -117,19 +117,19 @@
                                     <i class="fas fa-share-alt me-2"></i>Media Sosial & Portfolio
                                 </h4>
                                 <div class="social-media-icons">
-                                    <a href="https://linkedin.com/in/verazakiaramadani" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                                    <a href="https://linkedin.com/in/VeraZakia" target="_blank" class="social-icon linkedin" title="LinkedIn">
                                         <i class="fab fa-linkedin-in"></i>
                                     </a>
-                                    <a href="https://github.com/verazakiaramadani" target="_blank" class="social-icon github" title="GitHub">
+                                    <a href="https://github.com/Vera17-otp" target="_blank" class="social-icon github" title="GitHub">
                                         <i class="fab fa-github"></i>
                                     </a>
-                                    <a href="https://instagram.com/verazakiaramadani" target="_blank" class="social-icon instagram" title="Instagram">
+                                    <a href="https://instagram.com/verra_zr" target="_blank" class="social-icon instagram" title="Instagram">
                                         <i class="fab fa-instagram"></i>
                                     </a>
                                     <a href="https://twitter.com/verazakia_" target="_blank" class="social-icon twitter" title="Twitter">
                                         <i class="fab fa-twitter"></i>
                                     </a>
-                                    <a href="https://facebook.com/verazakiaramadani" target="_blank" class="social-icon facebook" title="Facebook">
+                                    <a href="https://facebook.com/JejakTerbang" target="_blank" class="social-icon facebook" title="Facebook">
                                         <i class="fab fa-facebook-f"></i>
                                     </a>
                                     <a href="https://verazakiaramadani.medium.com" target="_blank" class="social-icon medium" title="Medium Blog">
