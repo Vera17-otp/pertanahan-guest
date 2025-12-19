@@ -5,7 +5,7 @@
         <div class="col-lg-3 bg-dark d-none d-lg-flex align-items-center justify-content-center flex-column py-3">
 
             <!-- 🔹 LOGO BARU DITAMBAHKAN -->
-            <img src="{{ asset('assets/img/logo_pertanahan.webp') }}"
+            <img src="{{ asset('assets/img/logo_pertanahan.jpg') }}"
                  alt="Logo Pertanahan"
                  style="height:60px;" class="mb-2">
 
@@ -48,7 +48,7 @@
 
                 <!-- Logo Mobile -->
                 <a href="{{ url('/') }}" class="navbar-brand d-block d-lg-none d-flex align-items-center">
-                    <img src="{{ asset('assets/img/logo_pertanahan.webp') }}"
+                    <img src="{{ asset('assets/img/logo_pertanahan.jpg') }}"
                          alt="Logo Pertanahan"
                          style="height:40px;" class="me-2">
                     <h1 class="m-0 text-primary text-uppercase">Pertanahan</h1>
@@ -62,6 +62,8 @@
                     <div class="navbar-nav mr-auto py-0">
 
                         <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
+                        <a href="{{ route('rumah') }}" class="nav-item nav-link">Home</a>
+
 
                         <a href="{{ route('identitas.pengembang') }}" class="nav-item nav-link">Identitas Pengembang</a>
 

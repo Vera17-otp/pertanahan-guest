@@ -117,7 +117,7 @@
 
         <!-- LOGO -->
         <div class="login-header">
-            <img src="{{ asset('assets/img/logo_pertanahan.webp') }}" alt="Logo Pertanahan">
+            <img src="{{ asset('assets/img/logo_pertanahan.jpg') }}" alt="Logo Pertanahan">
         </div>
 
         <h2>Login Pertanahan</h2>
