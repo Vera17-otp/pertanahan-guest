@@ -4,14 +4,14 @@
     <!-- Navbar -->
 
     <!-- Header -->
-    <div class="container-fluid page-header mb-5 p-0"
-        style="background-image: url('{{ asset('img/carousel-1.jpg') }}'); background-size: cover; background-position: center;">
-        <div class="container-fluid page-header-inner py-5">
-            <div class="container text-center pb-5">
-                <h1 class="display-5 text-white mb-3 fw-bold animated slideInDown">Edit Data Warga</h1>
-            </div>
+<div class="container-fluid page-header mb-5 p-0"
+    style="background-image: url('{{ asset('assets/img/warga2.jpg') }}'); background-size: cover; background-position: center;">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-5 text-white mb-3 fw-bold animated slideInDown">Tambah Data Warga</h1>
         </div>
     </div>
+</div>
 
     <!-- Form Edit Warga -->
     <div class="container-xxl py-5">
