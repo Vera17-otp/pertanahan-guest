@@ -91,7 +91,7 @@
                                     <i class="fa fa-user me-2"></i> {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end rounded-0">
-                                    <li><a class="dropdown-item" href="{{ route('pertanahanguest.index') }}">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                                     <li>
                                         <form action="{{ route('logout') }}" method="POST">@csrf
                                             <button type="submit" class="dropdown-item">Logout</button>

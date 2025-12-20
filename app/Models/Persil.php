@@ -38,7 +38,7 @@ class Persil extends Model
         return $this->hasMany(Media::class, 'ref_id')
             ->where('ref_table', 'persil');
     }
-
+    
     public function warga()
     {
         return $this->belongsTo(Warga::class, 'pemilik_warga_id', 'warga_id');

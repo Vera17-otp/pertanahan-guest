@@ -118,6 +118,10 @@ Route::get('/about', function () {
     return view('pages.about');
 })->name('about')->middleware('checkislogin');
 
+Route::get('/dashboard', function () {
+    return view('pages.dashboard');
+})->name('dashboard')->middleware('checkislogin');
+
 Route::get('/rumah', function () {
     return view('pages.rumah');
 })->name('rumah')->middleware('checkislogin'); // PANGGILAN METHOD LANGSUNG
