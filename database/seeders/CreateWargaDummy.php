@@ -17,7 +17,7 @@ class CreateWargaDummy extends Seeder
         $faker = Faker::create('id_ID');
 
         for ($i = 0; $i < 100; $i++) {
-            DB::table('wargas')->insert([
+            DB::table('warga')->insert([
                 'nama_lengkap'   => $faker->name(),
                 'nik'            => $faker->unique()->numerify('################'),
                 'no_kk'          => $faker->unique()->numerify('################'),

@@ -26,7 +26,7 @@ return new class extends Migration
 
             // FOREIGN KEY BENAR
             $table->foreign('pemilik_warga_id')
-                  ->references('warga_id')->on('wargas')
+                  ->references('warga_id')->on('warga')
                   ->onDelete('set null');
         });
     }
