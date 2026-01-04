@@ -21,7 +21,8 @@
                             Form Edit Persil
                         </h5>
 
-                        <form action="{{ route('persil.update', $persil->persil_id) }}" method="POST"
+                        {{-- Gunakan array parameter karena route pakai {persil_id} --}}
+                        <form action="{{ route('persil.update', ['persil_id' => $persil->persil_id]) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -58,8 +59,12 @@
                                 <!-- Penggunaan -->
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" name="penggunaan"
-                                            value="{{ old('penggunaan', $persil->penggunaan) }}">
+                                        <select class="form-select" name="penggunaan">
+                                            <option value="permukiman" {{ $persil->penggunaan == 'permukiman' ? 'selected' : '' }}>Permukiman</option>
+                                            <option value="kebun" {{ $persil->penggunaan == 'kebun' ? 'selected' : '' }}>Kebun</option>
+                                            <option value="sawah" {{ $persil->penggunaan == 'sawah' ? 'selected' : '' }}>Sawah</option>
+                                            <option value="kosong" {{ $persil->penggunaan == 'kosong' ? 'selected' : '' }}>Lahan Kosong</option>
+                                        </select>
                                         <label>Penggunaan</label>
                                     </div>
                                 </div>
@@ -91,18 +96,14 @@
                                     </div>
                                 </div>
 
-                                <!-- ===================== -->
-                                <!-- Upload Foto Bidang    -->
-                                <!-- ===================== -->
+                                <!-- Upload Foto Bidang Baru -->
                                 <div class="col-md-12 mt-4">
                                     <label class="form-label fw-semibold">Upload Foto Baru (Opsional)</label>
                                     <input type="file" class="form-control" name="persil[]" accept="image/*" multiple>
                                     <small class="text-muted">Anda dapat memilih lebih dari satu foto.</small>
                                 </div>
 
-                                <!-- ===================== -->
-                                <!-- Tampilkan Foto Lama   -->
-                                <!-- ===================== -->
+                                <!-- Tampilkan Foto Lama -->
                                 @php
                                     $media = $persil->media ?? [];
                                 @endphp
@@ -117,19 +118,6 @@
                                                         <img src="{{ asset('uploads/persil/' . $m->file_name) }}"
                                                             class="card-img-top rounded"
                                                             style="height: 180px; object-fit: cover;">
-
-                                                        {{-- <div class="card-body p-2 text-center">
-                                                            <small>{{ $m->caption }}</small>
-
-                                                            <form action="{{ route('media.delete', $m->media_id) }}"
-                                                                method="POST" class="mt-2">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger w-100">
-                                                                    Hapus Foto
-                                                                </button>
-                                                            </form>
-                                                        </div> --}}
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -147,7 +135,6 @@
 
                             </div>
                         </form>
-
 
                     </div>
                 </div>

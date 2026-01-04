@@ -59,11 +59,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">Upload Foto Bidang (Opsional)</label>
-                                    <input type="file" class="form-control" name="dokumen_persil[]" accept="image/*"
-                                        multiple>
-                                </div>
+                               <div class="col-12">
+    <label class="form-label fw-semibold">Upload Dokumen (Opsional)</label>
+    <input type="file" class="form-control" name="dokumen_persil[]" 
+           accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" multiple>
+    <small class="text-muted">Format yang diterima: JPG, PNG, PDF, DOC, DOCX (maks. 4MB per file)</small>
+</div>
 
                                 <div class="col-12 mt-3">
                                     <button class="btn btn-primary w-100 py-3" type="submit">

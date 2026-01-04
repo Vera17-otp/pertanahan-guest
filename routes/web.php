@@ -83,6 +83,11 @@ Route::prefix('user')->group(function () {
     Route::get('/user/create', [GuestUserController::class, 'create'])->name('user.create');
     Route::post('/user', [GuestUserController::class, 'store'])->name('user.store');
 });
+ 
+Route::get('/users/{id}/delete-profile', [GuestUserController::class, 'deleteProfileImage'])
+    ->name('user.delete.profile');
+
+
 
 Route::prefix('peta_persil')->group(function () {
     Route::group(['middleware' => ['checkrole:admin']], function () {
@@ -135,8 +140,7 @@ Route::get('/home', function () {
     return view('pages.homee');
 })->name('home')->middleware('checkislogin');
 
-Route::get('/users/{id}/delete-profile', [GuestUserController::class, 'deleteProfileImage'])
-    ->name('user.delete.profile');
+
 
 
 Route::get('/identitas-pengembang', function () {

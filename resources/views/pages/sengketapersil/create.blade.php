@@ -35,60 +35,95 @@
                             @endif
                             <div class="row g-3">
 
+                                <!-- GANTI INPUT TEXT JADI SELECT -->
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="number" name="persil_id" class="form-control" placeholder="Persil ID"
-                                            required>
-                                        <label>Persil ID</label>
+                                        <select name="persil_id" class="form-select @error('persil_id') is-invalid @enderror" required>
+                                            <option value="">Pilih Persil</option>
+                                            @foreach($persilList as $persil)
+                                                <option value="{{ $persil->persil_id }}" 
+                                                    {{ old('persil_id') == $persil->persil_id ? 'selected' : '' }}>
+                                                    {{ $persil->kode_persil }} - 
+                                                    @if($persil->warga)
+                                                        {{ $persil->warga->nama_lengkap }}
+                                                    @else
+                                                        Tanpa Pemilik
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label>Persil</label>
+                                        @error('persil_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" name="pihak_1" class="form-control" placeholder="Pihak 1"
-                                            required>
+                                        <input type="text" name="pihak_1" class="form-control @error('pihak_1') is-invalid @enderror" 
+                                               placeholder="Pihak 1" value="{{ old('pihak_1') }}" required>
                                         <label>Pihak 1</label>
+                                        @error('pihak_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" name="pihak_2" class="form-control" placeholder="Pihak 2"
-                                            required>
+                                        <input type="text" name="pihak_2" class="form-control @error('pihak_2') is-invalid @enderror" 
+                                               placeholder="Pihak 2" value="{{ old('pihak_2') }}">
                                         <label>Pihak 2</label>
+                                        @error('pihak_2')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea name="kronologi" class="form-control" style="height: 120px" placeholder="Kronologi sengketa"></textarea>
+                                        <textarea name="kronologi" class="form-control @error('kronologi') is-invalid @enderror" 
+                                                  style="height: 120px" placeholder="Kronologi sengketa">{{ old('kronologi') }}</textarea>
                                         <label>Kronologi</label>
+                                        @error('kronologi')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <select name="status" class="form-select" required>
+                                        <select name="status" class="form-select @error('status') is-invalid @enderror" required>
                                             <option value="">Pilih Status</option>
-                                            <option value="Berlangsung">Berlangsung</option>
-                                            <option value="Selesai">Selesai</option>
+                                            <option value="Berlangsung" {{ old('status') == 'Berlangsung' ? 'selected' : '' }}>Berlangsung</option>
+                                            <option value="Selesai" {{ old('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
                                         </select>
                                         <label>Status Sengketa</label>
+                                        @error('status')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" name="penyelesaian" class="form-control"
-                                            placeholder="Penyelesaian">
+                                        <input type="text" name="penyelesaian" class="form-control @error('penyelesaian') is-invalid @enderror" 
+                                               placeholder="Penyelesaian" value="{{ old('penyelesaian') }}">
                                         <label>Penyelesaian</label>
+                                        @error('penyelesaian')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">Foto Sengketa (Bisa Banyak)</label>
-                                    <input type="file" class="form-control" name="foto_sengketa[]" accept="image/*"
-                                        multiple>
+                                    <input type="file" class="form-control @error('foto_sengketa.*') is-invalid @enderror" 
+                                           name="foto_sengketa[]" accept="image/*" multiple>
+                                    @error('foto_sengketa.*')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-12 mt-3">

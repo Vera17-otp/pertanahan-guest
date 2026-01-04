@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SengketaPersil;
+use App\Models\Persil; // TAMBAHKAN INI
 use Illuminate\Http\Request;
 
 class SengketaPersilController extends Controller
@@ -26,13 +27,15 @@ class SengketaPersilController extends Controller
 
     public function create()
     {
-        return view('pages.sengketapersil.create');
+        // AMBIL DATA PERSIL UNTUK DROPDOWN
+        $persilList = Persil::with('warga')->get();
+        return view('pages.sengketapersil.create', compact('persilList'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'persil_id'       => 'required|integer',
+            'persil_id'       => 'required|integer|exists:persil,persil_id', // TAMBAHKAN exists
             'pihak_1'         => 'required|string|max:255',
             'pihak_2'         => 'nullable|string|max:255',
             'kronologi'       => 'nullable|string',
@@ -41,32 +44,35 @@ class SengketaPersilController extends Controller
             'foto_sengketa.*' => 'nullable|image|max:4096',
         ]);
 
-        // Create sengketa
-        $sengketa = SengketaPersil::create($validated);
+        try {
+            // Create sengketa
+            $sengketa = SengketaPersil::create($validated);
 
-        // MULTIPLE FILES
-        if ($request->hasFile('foto_sengketa')) {
+            // MULTIPLE FILES
+            if ($request->hasFile('foto_sengketa')) {
+                foreach ($request->file('foto_sengketa') as $index => $file) {
+                    $name = time() . "_" . $index . "_" . $file->getClientOriginalName();
+                    $mime = $file->getClientMimeType();
+                    $file->move(public_path('uploads/sengketa'), $name);
 
-            foreach ($request->file('foto_sengketa') as $index => $file) {
-
-                $name = time() . "_" . $index . "_" . $file->getClientOriginalName();
-                $mime = $file->getClientMimeType();
-
-                $file->move(public_path('uploads/sengketa'), $name);
-
-                \App\Models\Media::create([
-                    'ref_table'  => 'sengketa_persil',
-                    'ref_id'     => $sengketa->sengketa_id,
-                    'file_name'  => $name,
-                    'caption'    => 'Foto Sengketa',
-                    'mime_type'  => $mime,
-                    'sort_order' => $index + 1,
-                ]);
+                    \App\Models\Media::create([
+                        'ref_table'  => 'sengketa_persil',
+                        'ref_id'     => $sengketa->sengketa_id,
+                        'file_name'  => $name,
+                        'caption'    => 'Foto Sengketa',
+                        'mime_type'  => $mime,
+                        'sort_order' => $index + 1,
+                    ]);
+                }
             }
-        }
 
-        return redirect()->route('sengketapersil.index')
-            ->with('success', 'Data sengketa berhasil ditambahkan!');
+            return redirect()->route('sengketapersil.index')
+                ->with('success', 'Data sengketa berhasil ditambahkan!');
+                
+        } catch (\Exception $e) {
+            return back()->withInput()
+                         ->with('error', 'Gagal menyimpan: ' . $e->getMessage());
+        }
     }
 
     public function edit(SengketaPersil $sengketa)
@@ -77,7 +83,7 @@ class SengketaPersilController extends Controller
     public function update(Request $request, SengketaPersil $sengketa)
     {
         $validated = $request->validate([
-            'persil_id'       => 'required|integer',
+            'persil_id'       => 'required|integer|exists:persil,persil_id', // TAMBAHKAN exists
             'pihak_1'         => 'required|string|max:255',
             'pihak_2'         => 'nullable|string|max:255',
             'kronologi'       => 'nullable|string',
@@ -90,12 +96,9 @@ class SengketaPersilController extends Controller
 
         // MULTIPLE FILE UPLOAD
         if ($request->hasFile('foto_sengketa')) {
-
             foreach ($request->file('foto_sengketa') as $index => $file) {
-
                 $name = time() . "_" . $index . "_" . $file->getClientOriginalName();
                 $mime = $file->getClientMimeType();
-
                 $file->move(public_path('uploads/sengketa'), $name);
 
                 \App\Models\Media::create([

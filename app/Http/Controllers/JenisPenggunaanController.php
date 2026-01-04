@@ -40,7 +40,8 @@ class JenisPenggunaanController extends Controller
 
         JenisPenggunaan::create($validated);
 
-        return redirect()->route('jenispenggunaan.index')
+        // PERBAIKI: 'jenis_penggunaan.index' (sesuai route di web.php)
+        return redirect()->route('jenis_penggunaan.index')
             ->with('success', 'Jenis Penggunaan berhasil ditambahkan!');
     }
 
@@ -63,6 +64,7 @@ class JenisPenggunaanController extends Controller
 
         $jenis->update($validated);
 
+        // SUDAH BENAR: 'jenis_penggunaan.index'
         return redirect()->route('jenis_penggunaan.index')
             ->with('success', 'Jenis Penggunaan berhasil diperbarui!');
     }
@@ -73,6 +75,7 @@ class JenisPenggunaanController extends Controller
         $jenis = JenisPenggunaan::findOrFail($id);
         $jenis->delete();
 
+        // SUDAH BENAR: 'jenis_penggunaan.index'
         return redirect()->route('jenis_penggunaan.index')
             ->with('success', 'Jenis Penggunaan berhasil dihapus!');
     }

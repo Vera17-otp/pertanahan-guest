@@ -55,10 +55,11 @@
                         $media = $item->media->first();
 
                         if ($media && str_contains($media->mime_type, 'image')) {
-                            $imagePath = asset('uploads/peta_persil/' . $media->file_name);
+                            // PERBAIKAN PATH: ganti 'peta_persil' dengan 'persil'
+                            $imagePath = asset('uploads/persil/' . $media->file_name);
 
                             // Jika file tidak ada secara fisik → fallback ke placeholder
-                            if (!file_exists(public_path('uploads/peta_persil/' . $media->file_name))) {
+                            if (!file_exists(public_path('uploads/persil/' . $media->file_name))) {
                                 $imagePath = $placeholder;
                             }
                         } else {
@@ -103,7 +104,28 @@
                                     RT {{ $item->rt }} / RW {{ $item->rw }}
                                 </p>
 
-                               
+                                <!-- TOMBOL AKSI (Edit & Hapus) - Hanya tampil untuk admin -->
+                                @if(Auth::check() && Auth::user()->role === 'admin')
+                                <div class="mt-3 d-flex flex-wrap gap-2">
+                                    <!-- Tombol Edit - pakai persil_id -->
+                                    <a href="{{ route('persil.edit', ['persil_id' => $item->persil_id]) }}" 
+                                       class="btn btn-warning btn-sm flex-fill">
+                                        <i class="fa fa-edit me-1"></i> Edit
+                                    </a>
+                                    
+                                    <!-- Tombol Hapus - pakai id (sesuai route delete/{id}) -->
+                                    <form action="{{ route('persil.destroy', ['id' => $item->persil_id]) }}" 
+                                          method="POST" 
+                                          class="d-inline flex-fill"
+                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus persil ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm w-100">
+                                            <i class="fa fa-trash me-1"></i> Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                                @endif
 
                                 <!-- Tombol untuk buka modal detail pemilik -->
                                 @if ($item->warga)
@@ -214,4 +236,20 @@
         </div>
     </div>
 </div>
+
+<!-- Tambahkan script untuk konfirmasi hapus -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Konfirmasi sebelum hapus
+        const deleteForms = document.querySelectorAll('form[onsubmit]');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+
 @endsection

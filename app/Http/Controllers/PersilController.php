@@ -39,7 +39,7 @@ class PersilController extends Controller
     }
 
     // Simpan data persil baru
-    public function store(Request $request, Persil $persil)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'kode_persil'      => 'required|string|max:255|unique:persil,kode_persil',
@@ -55,9 +55,7 @@ class PersilController extends Controller
         $persil = Persil::create($validated);
 
         if ($request->hasFile('persil')) {
-
             foreach ($request->file('persil') as $index => $file) {
-
                 $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/persil'), $fileName);
 
@@ -76,15 +74,18 @@ class PersilController extends Controller
             ->with('success', 'Data persil berhasil ditambahkan!');
     }
 
-    // Form edit persil
-    public function edit(Persil $persil)
+    // Form edit persil - PAKAI $persil_id (sesuai route)
+    public function edit($persil_id)
     {
+        $persil = Persil::findOrFail($persil_id);
         return view('pages.persil.edit', compact('persil'));
     }
 
-    // Update persil
-    public function update(Request $request, Persil $persil)
+    // Update persil - PAKAI $persil_id (sesuai route)
+    public function update(Request $request, $persil_id)
     {
+        $persil = Persil::findOrFail($persil_id);
+        
         $validated = $request->validate([
             'kode_persil'      => 'required|string|max:255|unique:persil,kode_persil,' . $persil->persil_id . ',persil_id',
             'pemilik_warga_id' => 'nullable|integer',
@@ -99,9 +100,7 @@ class PersilController extends Controller
         $persil->update($validated);
 
         if ($request->hasFile('persil')) {
-
             foreach ($request->file('persil') as $index => $file) {
-
                 $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/persil'), $fileName);
 
@@ -120,14 +119,10 @@ class PersilController extends Controller
             ->with('success', 'Data persil berhasil diperbarui!');
     }
 
-    // Hapus persil
+    // Hapus persil - PAKAI $id (sesuai route delete/{id})
     public function destroy($id)
     {
         $persil = Persil::findOrFail($id);
-
-        // Jika ingin sekalian hapus dokumen persil yang terkait:
-        // $persil->dokumen()->delete();
-
         $persil->delete();
 
         return redirect()->route('persil.index')
