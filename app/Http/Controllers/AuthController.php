@@ -23,19 +23,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => 'required|string',
-            'password' => [
-                'required',
-                'min:3',
-                'regex:/[A-Z]/', // minimal ada huruf kapital
-            ],
-        ], [
-            'email.required'    => 'Email atau nama pengguna wajib diisi.',
-            'password.required' => 'Password wajib diisi.',
-            'password.min'      => 'Password minimal 3 karakter.',
-            'password.regex'    => 'Password harus mengandung minimal satu huruf kapital.',
-        ]);
-
+        'email'    => 'required|string',
+        'password' => 'required|min:3', // ← SIMPLE, TANPA REGEX
+    ], [
+        'email.required'    => 'Email atau nama pengguna wajib diisi.',
+        'password.required' => 'Password wajib diisi.',
+        'password.min'      => 'Password minimal 3 karakter.',
+    ]);
         // Bisa login pakai email atau nama
         $loginValue = $request->input('email');
         $fieldType  = filter_var($loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
